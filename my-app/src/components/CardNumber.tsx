@@ -12,10 +12,30 @@ export default function CardNumber({ handleCardNumbers }: CardNumbersProps) {
       <div>
         <label>카드 번호</label>
         <div>
-          <input type="text" placeholder="1234" onChange={handleCardNumbers(0)}></input>
-          <input type="text" placeholder="1234" onChange={handleCardNumbers(1)}></input>
-          <input type="text" placeholder="1234" onChange={handleCardNumbers(2)}></input>
-          <input type="text" placeholder="1234" onChange={handleCardNumbers(3)}></input>
+          <input
+            type="text"
+            placeholder="1234"
+            maxLength={4}
+            onChange={handleCardNumbers(0)}
+          ></input>
+          <input
+            type="text"
+            placeholder="1234"
+            maxLength={4}
+            onChange={handleCardNumbers(1)}
+          ></input>
+          <input
+            type="text"
+            placeholder="1234"
+            maxLength={4}
+            onChange={handleCardNumbers(2)}
+          ></input>
+          <input
+            type="text"
+            placeholder="1234"
+            maxLength={4}
+            onChange={handleCardNumbers(3)}
+          ></input>
         </div>
         <span></span>
       </div>
