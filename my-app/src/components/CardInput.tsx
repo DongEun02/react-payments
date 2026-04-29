@@ -5,9 +5,11 @@ import type { errorModeInfoType } from '../constants/mode';
 
 type CardInputProps = {
   cardNumbers: string[];
-  cardValidityPeriod: string;
+  cardValidityPeriod: string[];
   cardCvc: string;
-  errorMode: errorModeInfoType | 'normal';
+  cardNumberErrorMode: errorModeInfoType | 'normal';
+  cardValidityErrorMode: errorModeInfoType | 'normal';
+  cardCvcErrorMode: errorModeInfoType | 'normal';
   handleCardNumbers: (index: number) => (e: React.ChangeEvent<HTMLInputElement>) => void;
   handleCardValidityPeriod: (index: number) => (e: React.ChangeEvent<HTMLInputElement>) => void;
   handleCardCvc: (e: React.ChangeEvent<HTMLInputElement>) => void;
@@ -17,7 +19,9 @@ export default function CardInput({
   cardNumbers,
   cardValidityPeriod,
   cardCvc,
-  errorMode,
+  cardNumberErrorMode,
+  cardValidityErrorMode,
+  cardCvcErrorMode,
   handleCardNumbers,
   handleCardValidityPeriod,
   handleCardCvc,
@@ -26,15 +30,19 @@ export default function CardInput({
     <form>
       <CardNumber
         cardNumbers={cardNumbers}
-        errorMode={errorMode}
+        cardNumberErrorMode={cardNumberErrorMode}
         handleCardNumbers={handleCardNumbers}
       />
       <CardValidityPeriod
         cardValidityPeriod={cardValidityPeriod}
-        errorMode={errorMode}
+        cardValidityErrorMode={cardValidityErrorMode}
         handleCardValidityPeriod={handleCardValidityPeriod}
       />
-      <CardCvc cardCvc={cardCvc} errorMode={errorMode} handleCardCvc={handleCardCvc} />
+      <CardCvc
+        cardCvc={cardCvc}
+        cardCvcErrorMode={cardCvcErrorMode}
+        handleCardCvc={handleCardCvc}
+      />
     </form>
   );
 }

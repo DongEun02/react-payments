@@ -3,13 +3,13 @@ import { ERROR_MODE } from '../constants/mode.ts';
 
 type CardNumbersProps = {
   cardNumbers: string[];
-  errorMode: errorModeInfoType | 'normal';
+  cardNumberErrorMode: errorModeInfoType | 'normal';
   handleCardNumbers: (index: number) => (e: React.ChangeEvent<HTMLInputElement>) => void;
 };
 
 export default function CardNumber({
   cardNumbers,
-  errorMode,
+  cardNumberErrorMode,
   handleCardNumbers,
 }: CardNumbersProps) {
   return (
@@ -50,7 +50,7 @@ export default function CardNumber({
             value={cardNumbers[3]}
           ></input>
         </div>
-        {errorMode !== 'normal' && <span>{ERROR_MODE[errorMode]}</span>}
+        {cardNumberErrorMode !== 'normal' && <span>{ERROR_MODE[cardNumberErrorMode]}</span>}
       </div>
     </div>
   );

@@ -1,8 +1,17 @@
+import type { errorModeInfoType } from '../constants/mode';
+import { ERROR_MODE } from '../constants/mode.ts';
+
 type CardValidityPeriodProps = {
+  cardValidityPeriod: string[];
+  cardValidityErrorMode: errorModeInfoType | 'normal';
   handleCardValidityPeriod: (index: number) => (e: React.ChangeEvent<HTMLInputElement>) => void;
 };
 
-export default function CardValidityPeriod({ handleCardValidityPeriod }: CardValidityPeriodProps) {
+export default function CardValidityPeriod({
+  cardValidityPeriod,
+  cardValidityErrorMode,
+  handleCardValidityPeriod,
+}: CardValidityPeriodProps) {
   return (
     <div>
       <div>
@@ -12,10 +21,22 @@ export default function CardValidityPeriod({ handleCardValidityPeriod }: CardVal
       <div>
         <label>유효기간</label>
         <div>
-          <input type="text" placeholder="MM" onChange={handleCardValidityPeriod(0)}></input>
-          <input type="text" placeholder="YY" onChange={handleCardValidityPeriod(1)}></input>
+          <input
+            type="text"
+            placeholder="MM"
+            value={cardValidityPeriod[0]}
+            onChange={handleCardValidityPeriod(0)}
+            maxLength={2}
+          ></input>
+          <input
+            type="text"
+            placeholder="YY"
+            value={cardValidityPeriod[1]}
+            onChange={handleCardValidityPeriod(1)}
+            maxLength={2}
+          ></input>
         </div>
-        <span></span>
+        {cardValidityErrorMode !== 'normal' && <span>{ERROR_MODE[cardValidityErrorMode]}</span>}
       </div>
     </div>
   );
