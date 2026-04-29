@@ -14,6 +14,7 @@ export default function RegisterCard() {
     'normal',
   );
   const [cardCvcErrorMode, setCardCvcErrorMode] = useState<errorModeInfoType | 'normal'>('normal');
+  const [cardBrand, setCardBrand] = useState<string>('');
 
   const handleCardNumbers = (index: number) => (e: React.ChangeEvent<HTMLInputElement>) => {
     const next = [...cardNumbers];
@@ -21,6 +22,25 @@ export default function RegisterCard() {
     if (isNaN(Number(e.target.value))) {
       setCardNumberErrorMode('notNumber');
       return;
+    }
+    if (next[0] === '') {
+      setCardBrand('');
+    }
+    if (next[0].length === 1) {
+      if (next[0].slice(0, 1) !== '4' && next[0].slice(0, 1) !== '5') {
+        setCardNumberErrorMode('notExistBrand');
+        return;
+      }
+      if (next[0].slice(0, 1) == '4') {
+        setCardBrand('visa');
+      }
+    }
+    if (next[0].length === 2 && next[0].slice(0, 1) !== '4') {
+      if (Number(next[0].slice(0, 2)) < 51 || Number(next[0].slice(0, 2)) > 55) {
+        setCardNumberErrorMode('notExistBrand');
+        return;
+      }
+      setCardBrand('materCard');
     }
     setCardNumberErrorMode('normal');
     setCardNumbers(next);
@@ -48,7 +68,11 @@ export default function RegisterCard() {
 
   return (
     <>
-      <Card cardNumbers={cardNumbers} cardValidityPeriod={cardValidityPeriod} />
+      <Card
+        cardNumbers={cardNumbers}
+        cardValidityPeriod={cardValidityPeriod}
+        cardBrand={cardBrand}
+      />
       <CardInput
         cardNumbers={cardNumbers}
         cardValidityPeriod={cardValidityPeriod}
