@@ -5,12 +5,14 @@ type CardNumbersProps = {
   cardNumbers: string[];
   cardNumberErrorMode: errorModeInfoType | 'normal';
   handleCardNumbers: (index: number) => (e: React.ChangeEvent<HTMLInputElement>) => void;
+  handleLastCardNumber: () => void;
 };
 
 export default function CardNumber({
   cardNumbers,
   cardNumberErrorMode,
   handleCardNumbers,
+  handleLastCardNumber,
 }: CardNumbersProps) {
   return (
     <div>
@@ -48,6 +50,7 @@ export default function CardNumber({
             maxLength={4}
             onChange={handleCardNumbers(3)}
             value={cardNumbers[3]}
+            onBlur={handleLastCardNumber}
           ></input>
         </div>
         {cardNumberErrorMode !== 'normal' && <span>{ERROR_MODE[cardNumberErrorMode]}</span>}

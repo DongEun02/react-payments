@@ -1,6 +1,6 @@
 import Card from '../components/Card';
 import CardInput from '../components/CardInput';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import type { errorModeInfoType } from '../constants/mode';
 
 export default function RegisterCard() {
@@ -66,6 +66,14 @@ export default function RegisterCard() {
     setCardCvc(e.target.value);
   };
 
+  const handleLastCardNumber = () => {
+    if (cardNumbers.join('').length !== 16) {
+      setCardNumberErrorMode('cardNumberCount');
+      return;
+    }
+    setCardNumberErrorMode('normal');
+  };
+
   return (
     <>
       <Card
@@ -83,6 +91,7 @@ export default function RegisterCard() {
         handleCardNumbers={handleCardNumbers}
         handleCardValidityPeriod={handleCardValidityPeriod}
         handleCardCvc={handleCardCvc}
+        handleLastCardNumber={handleLastCardNumber}
       />
     </>
   );

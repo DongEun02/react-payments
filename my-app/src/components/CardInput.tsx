@@ -13,6 +13,7 @@ type CardInputProps = {
   handleCardNumbers: (index: number) => (e: React.ChangeEvent<HTMLInputElement>) => void;
   handleCardValidityPeriod: (index: number) => (e: React.ChangeEvent<HTMLInputElement>) => void;
   handleCardCvc: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  handleLastCardNumber: () => void;
 };
 
 export default function CardInput({
@@ -25,6 +26,7 @@ export default function CardInput({
   handleCardNumbers,
   handleCardValidityPeriod,
   handleCardCvc,
+  handleLastCardNumber,
 }: CardInputProps) {
   return (
     <form>
@@ -32,6 +34,7 @@ export default function CardInput({
         cardNumbers={cardNumbers}
         cardNumberErrorMode={cardNumberErrorMode}
         handleCardNumbers={handleCardNumbers}
+        handleLastCardNumber={handleLastCardNumber}
       />
       <CardValidityPeriod
         cardValidityPeriod={cardValidityPeriod}
