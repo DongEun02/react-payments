@@ -1,8 +1,17 @@
+import type { errorModeInfoType } from '../constants/mode.ts';
+import { ERROR_MODE } from '../constants/mode.ts';
+
 type CardNumbersProps = {
+  cardNumbers: string[];
+  errorMode: errorModeInfoType | 'normal';
   handleCardNumbers: (index: number) => (e: React.ChangeEvent<HTMLInputElement>) => void;
 };
 
-export default function CardNumber({ handleCardNumbers }: CardNumbersProps) {
+export default function CardNumber({
+  cardNumbers,
+  errorMode,
+  handleCardNumbers,
+}: CardNumbersProps) {
   return (
     <div>
       <div>
@@ -17,27 +26,31 @@ export default function CardNumber({ handleCardNumbers }: CardNumbersProps) {
             placeholder="1234"
             maxLength={4}
             onChange={handleCardNumbers(0)}
+            value={cardNumbers[0]}
           ></input>
           <input
             type="text"
             placeholder="1234"
             maxLength={4}
             onChange={handleCardNumbers(1)}
+            value={cardNumbers[1]}
           ></input>
           <input
             type="text"
             placeholder="1234"
             maxLength={4}
             onChange={handleCardNumbers(2)}
+            value={cardNumbers[2]}
           ></input>
           <input
             type="text"
             placeholder="1234"
             maxLength={4}
             onChange={handleCardNumbers(3)}
+            value={cardNumbers[3]}
           ></input>
         </div>
-        <span></span>
+        {errorMode !== 'normal' && <span>{ERROR_MODE[errorMode]}</span>}
       </div>
     </div>
   );
