@@ -1,15 +1,15 @@
 import CardCvc from './CardCvc';
 import CardNumber from './CardNumber';
 import CardExpiryDate from './CardExpiryDate';
-import type { errorModeInfoType } from '../constants/mode';
+import type { CardError, DateError, MonthError, YearError, CvcError } from '../types/types';
 
 type CardInputProps = {
   cardNumbers: string[];
   cardExpiryDate: string[];
   cardCvc: string;
-  cardNumberErrorMode: errorModeInfoType | 'normal';
-  cardExpiryDateErrorMode: errorModeInfoType | 'normal';
-  cardCvcErrorMode: errorModeInfoType | 'normal';
+  cardNumberErrorMode: CardError | 'normal';
+  cardExpiryDateErrorMode: DateError | MonthError | YearError | 'normal';
+  cardCvcErrorMode: CvcError | 'normal';
   handleCardNumbers: (index: number) => (e: React.ChangeEvent<HTMLInputElement>) => void;
   handleCardExpiryDate: (index: number) => (e: React.ChangeEvent<HTMLInputElement>) => void;
   handleCardCvc: (e: React.ChangeEvent<HTMLInputElement>) => void;
