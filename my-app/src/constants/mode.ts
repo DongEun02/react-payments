@@ -5,7 +5,8 @@ export type errorModeInfoType =
   | 'emptyBoth'
   | 'emptyMonth'
   | 'yearCount'
-  | 'notMonthRange';
+  | 'notMonthRange'
+  | 'cvcCount';
 
 type errorModeType = {
   [key in errorModeInfoType]: string;
@@ -19,4 +20,5 @@ export const ERROR_MODE: errorModeType = {
   emptyMonth: '월을 입력해주세요.',
   yearCount: '연도를 입력해주세요.',
   notMonthRange: '월 입력값은 1~12입니다.',
+  cvcCount: 'CVC 번호는 3자리여야 합니다.',
 };

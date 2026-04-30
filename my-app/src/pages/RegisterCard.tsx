@@ -107,6 +107,14 @@ export default function RegisterCard() {
     setCardExpiryDateErrorMode('normal');
   };
 
+  const handleCvcBlur = () => {
+    if (cardCvc.length < 3) {
+      setCardCvcErrorMode('cvcCount');
+      return;
+    }
+    setCardCvcErrorMode('normal');
+  };
+
   return (
     <>
       <Card cardNumbers={cardNumbers} cardExpiryDate={cardExpiryDate} cardBrand={cardBrand} />
@@ -123,6 +131,7 @@ export default function RegisterCard() {
         handleLastCardNumber={handleLastCardNumber}
         handleYearBlur={handleYearBlur}
         handleMonthBlur={handleMonthBlur}
+        handleCvcBlur={handleCvcBlur}
       />
     </>
   );

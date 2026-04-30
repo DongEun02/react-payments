@@ -16,6 +16,7 @@ type CardInputProps = {
   handleLastCardNumber: () => void;
   handleYearBlur: () => void;
   handleMonthBlur: () => void;
+  handleCvcBlur: () => void;
 };
 
 export default function CardInput({
@@ -31,6 +32,7 @@ export default function CardInput({
   handleLastCardNumber,
   handleYearBlur,
   handleMonthBlur,
+  handleCvcBlur,
 }: CardInputProps) {
   return (
     <form>
@@ -51,6 +53,7 @@ export default function CardInput({
         cardCvc={cardCvc}
         cardCvcErrorMode={cardCvcErrorMode}
         handleCardCvc={handleCardCvc}
+        handleCvcBlur={handleCvcBlur}
       />
     </form>
   );

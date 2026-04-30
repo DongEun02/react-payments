@@ -5,9 +5,15 @@ type CardCvcProps = {
   cardCvc: string;
   cardCvcErrorMode: errorModeInfoType | 'normal';
   handleCardCvc: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  handleCvcBlur: () => void;
 };
 
-export default function CardCvc({ cardCvc, cardCvcErrorMode, handleCardCvc }: CardCvcProps) {
+export default function CardCvc({
+  cardCvc,
+  cardCvcErrorMode,
+  handleCardCvc,
+  handleCvcBlur,
+}: CardCvcProps) {
   return (
     <div>
       <div>
@@ -22,6 +28,7 @@ export default function CardCvc({ cardCvc, cardCvcErrorMode, handleCardCvc }: Ca
             value={cardCvc}
             onChange={handleCardCvc}
             maxLength={3}
+            onBlur={handleCvcBlur}
           ></input>
         </div>
         {cardCvcErrorMode !== 'normal' && <span>{ERROR_MODE[cardCvcErrorMode]}</span>}
