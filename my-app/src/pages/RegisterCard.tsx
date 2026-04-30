@@ -40,7 +40,7 @@ export default function RegisterCard() {
         setCardNumberErrorMode('notExistBrand');
         return;
       }
-      setCardBrand('materCard');
+      setCardBrand('master');
     }
     setCardNumberErrorMode('normal');
     setCardNumbers(next);
