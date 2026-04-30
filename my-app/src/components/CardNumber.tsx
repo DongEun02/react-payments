@@ -1,9 +1,9 @@
-import type { errorModeInfoType } from '../constants/mode.ts';
-import { ERROR_MODE } from '../constants/mode.ts';
+import type { CardError } from '../types/types';
+import { CARD_ERROR_MESSAGE } from '../constants/messages.ts';
 
 type CardNumbersProps = {
   cardNumbers: string[];
-  cardNumberErrorMode: errorModeInfoType | 'normal';
+  cardNumberErrorMode: CardError | 'normal';
   handleCardNumbers: (index: number) => (e: React.ChangeEvent<HTMLInputElement>) => void;
   handleLastCardNumber: () => void;
 };
@@ -15,49 +15,75 @@ export default function CardNumber({
   handleLastCardNumber,
 }: CardNumbersProps) {
   return (
-    <div>
+    <div css={{ display: 'flex', flexDirection: 'column' }}>
       <div>
-        <div>결제한 카드 번호를 입력해주세요</div>
-        <div>본인 명의의 카드만 결제 가능합니다.</div>
+        <h1
+          css={(theme) => ({
+            ...theme.typography.title,
+            color: theme.colors.black,
+          })}
+        >
+          결제한 카드 번호를 입력해주세요
+        </h1>
+        <p
+          css={(theme) => ({
+            ...theme.typography.caption,
+            color: theme.colors.description,
+          })}
+        >
+          본인 명의의 카드만 결제 가능합니다.
+        </p>
       </div>
       <div>
-        <label>카드 번호</label>
-        <div>
-          <input
-            type="text"
-            placeholder="1234"
-            maxLength={4}
-            onChange={handleCardNumbers(0)}
-            value={cardNumbers[0]}
-            inputMode="numeric"
-          ></input>
-          <input
-            type="text"
-            placeholder="1234"
-            maxLength={4}
-            onChange={handleCardNumbers(1)}
-            value={cardNumbers[1]}
-            inputMode="numeric"
-          ></input>
-          <input
-            type="text"
-            placeholder="1234"
-            maxLength={4}
-            onChange={handleCardNumbers(2)}
-            value={cardNumbers[2]}
-            inputMode="numeric"
-          ></input>
-          <input
-            type="text"
-            placeholder="1234"
-            maxLength={4}
-            onChange={handleCardNumbers(3)}
-            value={cardNumbers[3]}
-            onBlur={handleLastCardNumber}
-            inputMode="numeric"
-          ></input>
+        <label
+          css={(theme) => ({
+            ...theme.typography.label,
+            color: theme.colors.label,
+          })}
+        >
+          카드 번호
+        </label>
+        <div
+          css={{
+            display: 'flex',
+            gap: '10px',
+          }}
+        >
+          {cardNumbers.map((cardNumber, index) => {
+            return (
+              <input
+                type="text"
+                placeholder="1234"
+                maxLength={4}
+                onChange={handleCardNumbers(index)}
+                value={cardNumber}
+                onBlur={handleLastCardNumber}
+                inputMode="numeric"
+                css={(theme) => ({
+                  width: '71.25px',
+                  height: '32px',
+                  borderRadius: '2px',
+                  border: `1.01px solid ${theme.colors.inactiveBorder}`,
+                  borderColor:
+                    cardNumber.length < 4 && cardNumberErrorMode !== 'normal'
+                      ? theme.colors.error
+                      : theme.colors.inactiveBorder,
+                  padding: '8px',
+                })}
+              ></input>
+            );
+          })}
         </div>
-        {cardNumberErrorMode !== 'normal' && <span>{ERROR_MODE[cardNumberErrorMode]}</span>}
+        {cardNumberErrorMode !== 'normal' && (
+          <span
+            css={(theme) => ({
+              ...theme.typography.caption,
+              color: theme.colors.error,
+            })}
+          >
+            {CARD_ERROR_MESSAGE[cardNumberErrorMode]}
+          </span>
+        )}
       </div>
     </div>
   );
