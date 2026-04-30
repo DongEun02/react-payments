@@ -52,6 +52,7 @@ export default function CardNumber({
           {cardNumbers.map((cardNumber, index) => {
             return (
               <input
+                key={index}
                 type="text"
                 placeholder="1234"
                 maxLength={4}
