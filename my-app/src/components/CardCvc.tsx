@@ -1,5 +1,5 @@
-import type { errorModeInfoType } from '../constants/mode';
-import { ERROR_MODE } from '../constants/mode.ts';
+import type { errorModeInfoType } from '../constants/messages.ts';
+import { ERROR_MODE } from '../constants/messages.ts';
 
 type CardCvcProps = {
   cardCvc: string;
@@ -15,12 +15,24 @@ export default function CardCvc({
   handleCvcBlur,
 }: CardCvcProps) {
   return (
-    <div>
-      <div>
+    <div css={{ display: 'flex', flexDirection: 'column' }}>
+      <h1
+        css={(theme) => ({
+          ...theme.typography.title,
+          color: theme.colors.black,
+        })}
+      >
         <div>CVC 번호를 입력해 주세요</div>
-      </div>
+      </h1>
       <div>
-        <label>CVC</label>
+        <label
+          css={(theme) => ({
+            ...theme.typography.label,
+            color: theme.colors.label,
+          })}
+        >
+          CVC
+        </label>
         <div>
           <input
             type="text"
@@ -30,9 +42,28 @@ export default function CardCvc({
             maxLength={3}
             onBlur={handleCvcBlur}
             inputMode="numeric"
+            css={(theme) => ({
+              width: '315px',
+              height: '32px',
+              borderRadius: '2px',
+              border: `1.01px solid ${theme.colors.inactiveBorder}`,
+              borderColor: `${
+                cardCvcErrorMode !== 'normal' ? theme.colors.error : theme.colors.inactiveBorder
+              }`,
+              padding: '8px',
+            })}
           ></input>
         </div>
-        {cardCvcErrorMode !== 'normal' && <span>{ERROR_MODE[cardCvcErrorMode]}</span>}
+        {cardCvcErrorMode !== 'normal' && (
+          <span
+            css={(theme) => ({
+              ...theme.typography.caption,
+              color: theme.colors.error,
+            })}
+          >
+            {ERROR_MODE[cardCvcErrorMode]}
+          </span>
+        )}
       </div>
     </div>
   );
