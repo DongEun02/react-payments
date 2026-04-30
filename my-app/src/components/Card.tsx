@@ -53,12 +53,12 @@ export default function Card({ cardBrand, cardNumbers, cardExpiryDate }: CardPro
           gap: '10px',
         })}
       >
-        <span>{cardNumbers[0]}</span>
-        <span>{cardNumbers[1]}</span>
-        <span css={{ letterSpacing: '0px', fontSize: '30px' }}>
+        <span css={{ width: '40px', margin: '0 auto' }}>{cardNumbers[0]}</span>
+        <span css={{ width: '40px', margin: '0 auto' }}>{cardNumbers[1]}</span>
+        <span css={{ letterSpacing: '0px', fontSize: '30px', width: '34px' }}>
           {'·'.repeat(cardNumbers[2].length)}
         </span>
-        <span css={{ letterSpacing: '0px', fontSize: '30px' }}>
+        <span css={{ letterSpacing: '0px', fontSize: '30px', width: '34px' }}>
           {'·'.repeat(cardNumbers[3].length)}
         </span>
       </div>
