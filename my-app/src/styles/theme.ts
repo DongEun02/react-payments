@@ -22,7 +22,7 @@ const typography = {
   },
   caption: {
     fontFamily: 'Noto Sans KR',
-    fontWeight: '700',
+    fontWeight: '400',
     fontStyle: 'Regular',
     fontSize: '9.5px',
     leadingTrim: 'NONE',
