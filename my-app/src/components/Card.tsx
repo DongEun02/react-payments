@@ -1,10 +1,10 @@
 type CardProps = {
   cardBrand: string;
   cardNumbers: string[];
-  cardValidityPeriod: string[];
+  cardExpiryDate: string[];
 };
 
-export default function Card({ cardBrand, cardNumbers, cardValidityPeriod }: CardProps) {
+export default function Card({ cardBrand, cardNumbers, cardExpiryDate }: CardProps) {
   return (
     <div>
       <div>
@@ -17,9 +17,9 @@ export default function Card({ cardBrand, cardNumbers, cardValidityPeriod }: Car
         <span>{cardNumbers[2]}</span>
         <span>{cardNumbers[3]}</span>
       </div>
-      {cardValidityPeriod[0] !== '' && cardValidityPeriod[1] !== '' && (
+      {cardExpiryDate[0] !== '' && cardExpiryDate[1] !== '' && (
         <span>
-          {cardValidityPeriod[0]}/{cardValidityPeriod[1]}
+          {cardExpiryDate[0]}/{cardExpiryDate[1]}
         </span>
       )}
     </div>

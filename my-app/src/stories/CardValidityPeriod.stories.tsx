@@ -2,16 +2,16 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import { useState } from 'react';
 import { fn } from 'storybook/test';
 
-import CardValidityPeriod from '../components/CardValidityPeriod';
+import CardExpiryDate from '../components/CardExpiryDate';
 
 const meta = {
-  title: 'Components/CardValidityPeriod',
-  component: CardValidityPeriod,
+  title: 'Components/CardExpiryDate',
+  component: CardExpiryDate,
   parameters: {
     layout: 'centered',
   },
   tags: ['autodocs'],
-} satisfies Meta<typeof CardValidityPeriod>;
+} satisfies Meta<typeof CardExpiryDate>;
 
 export default meta;
 
@@ -19,29 +19,28 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
-    handleCardValidityPeriod: () => fn(),
+    handleCardExpiryDate: () => fn(),
   },
 };
 
 export const Interactive: Story = {
   args: {
-    handleCardValidityPeriod: () => fn(),
+    handleCardExpiryDate: () => fn(),
   },
   render: () => {
-    const [validityPeriod, setValidityPeriod] = useState(['', '']);
+    const [expiryDate, setExpiryDate] = useState(['', '']);
 
-    const handleCardValidityPeriod =
-      (index: number) => (e: React.ChangeEvent<HTMLInputElement>) => {
-        const next = [...validityPeriod];
-        next[index] = e.target.value;
-        setValidityPeriod(next);
-      };
+    const handleCardExpiryDate = (index: number) => (e: React.ChangeEvent<HTMLInputElement>) => {
+      const next = [...expiryDate];
+      next[index] = e.target.value;
+      setExpiryDate(next);
+    };
 
     return (
       <div>
-        <CardValidityPeriod handleCardValidityPeriod={handleCardValidityPeriod} />
+        <CardExpiryDate handleCardExpiryDate={handleCardExpiryDate} />
 
-        <div style={{ marginTop: '16px' }}>입력값: {validityPeriod.join('/')}</div>
+        <div style={{ marginTop: '16px' }}>입력값: {expiryDate.join('/')}</div>
       </div>
     );
   },

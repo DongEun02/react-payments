@@ -5,14 +5,14 @@ import type { errorModeInfoType } from '../constants/mode';
 
 export default function RegisterCard() {
   const [cardNumbers, setCardNumbers] = useState<string[]>(['', '', '', '']);
-  const [cardValidityPeriod, setCardValidityPeriod] = useState<string[]>(['', '']);
+  const [cardExpiryDate, setCardExpiryDate] = useState<string[]>(['', '']);
   const [cardCvc, setCardCvc] = useState<string>('');
   const [cardNumberErrorMode, setCardNumberErrorMode] = useState<errorModeInfoType | 'normal'>(
     'normal',
   );
-  const [cardValidityErrorMode, setCardValidityErrorMode] = useState<errorModeInfoType | 'normal'>(
-    'normal',
-  );
+  const [cardExpiryDateErrorMode, setCardExpiryDateErrorMode] = useState<
+    errorModeInfoType | 'normal'
+  >('normal');
   const [cardCvcErrorMode, setCardCvcErrorMode] = useState<errorModeInfoType | 'normal'>('normal');
   const [cardBrand, setCardBrand] = useState<string>('');
 
@@ -46,15 +46,23 @@ export default function RegisterCard() {
     setCardNumbers(next);
   };
 
-  const handleCardValidityPeriod = (index: number) => (e: React.ChangeEvent<HTMLInputElement>) => {
-    const next = [...cardValidityPeriod];
+  const handleCardExpiryDate = (index: number) => (e: React.ChangeEvent<HTMLInputElement>) => {
+    const next = [...cardExpiryDate];
     next[index] = e.target.value;
     if (isNaN(Number(e.target.value))) {
-      setCardValidityErrorMode('notNumber');
+      setCardExpiryDateErrorMode('notNumber');
       return;
     }
-    setCardValidityErrorMode('normal');
-    setCardValidityPeriod(next);
+
+    if (index === 0) {
+      if (Number(next[index]) > 12) {
+        setCardExpiryDateErrorMode('notMonthRange');
+        return;
+      }
+    }
+
+    setCardExpiryDateErrorMode('normal');
+    setCardExpiryDate(next);
   };
 
   const handleCardCvc = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -74,24 +82,47 @@ export default function RegisterCard() {
     setCardNumberErrorMode('normal');
   };
 
+  const handleYearBlur = () => {
+    if (cardExpiryDate.join('').length === 0) {
+      setCardExpiryDateErrorMode('emptyBoth');
+      return;
+    }
+    if (cardExpiryDate[1].length < 2) {
+      setCardExpiryDateErrorMode('yearCount');
+      return;
+    }
+    if (cardExpiryDate[0].length === 0) {
+      setCardExpiryDateErrorMode('emptyMonth');
+      return;
+    }
+    setCardExpiryDateErrorMode('normal');
+  };
+
+  const handleMonthBlur = () => {
+    if (cardExpiryDate[0].length === 0) {
+      setCardExpiryDateErrorMode('emptyMonth');
+      return;
+    }
+
+    setCardExpiryDateErrorMode('normal');
+  };
+
   return (
     <>
-      <Card
-        cardNumbers={cardNumbers}
-        cardValidityPeriod={cardValidityPeriod}
-        cardBrand={cardBrand}
-      />
+      <Card cardNumbers={cardNumbers} cardExpiryDate={cardExpiryDate} cardBrand={cardBrand} />
       <CardInput
         cardNumbers={cardNumbers}
-        cardValidityPeriod={cardValidityPeriod}
+        cardExpiryDate={cardExpiryDate}
         cardCvc={cardCvc}
         cardNumberErrorMode={cardNumberErrorMode}
-        cardValidityErrorMode={cardValidityErrorMode}
+        cardExpiryDateErrorMode={cardExpiryDateErrorMode}
         cardCvcErrorMode={cardCvcErrorMode}
         handleCardNumbers={handleCardNumbers}
-        handleCardValidityPeriod={handleCardValidityPeriod}
+        handleCardExpiryDate={handleCardExpiryDate}
         handleCardCvc={handleCardCvc}
         handleLastCardNumber={handleLastCardNumber}
+        handleYearBlur={handleYearBlur}
+        handleMonthBlur={handleMonthBlur}
       />
     </>
   );

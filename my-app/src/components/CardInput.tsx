@@ -1,32 +1,36 @@
 import CardCvc from './CardCvc';
 import CardNumber from './CardNumber';
-import CardValidityPeriod from './CardValidityPeriod';
+import CardExpiryDate from './CardExpiryDate';
 import type { errorModeInfoType } from '../constants/mode';
 
 type CardInputProps = {
   cardNumbers: string[];
-  cardValidityPeriod: string[];
+  cardExpiryDate: string[];
   cardCvc: string;
   cardNumberErrorMode: errorModeInfoType | 'normal';
-  cardValidityErrorMode: errorModeInfoType | 'normal';
+  cardExpiryDateErrorMode: errorModeInfoType | 'normal';
   cardCvcErrorMode: errorModeInfoType | 'normal';
   handleCardNumbers: (index: number) => (e: React.ChangeEvent<HTMLInputElement>) => void;
-  handleCardValidityPeriod: (index: number) => (e: React.ChangeEvent<HTMLInputElement>) => void;
+  handleCardExpiryDate: (index: number) => (e: React.ChangeEvent<HTMLInputElement>) => void;
   handleCardCvc: (e: React.ChangeEvent<HTMLInputElement>) => void;
   handleLastCardNumber: () => void;
+  handleYearBlur: () => void;
+  handleMonthBlur: () => void;
 };
 
 export default function CardInput({
   cardNumbers,
-  cardValidityPeriod,
+  cardExpiryDate,
   cardCvc,
   cardNumberErrorMode,
-  cardValidityErrorMode,
+  cardExpiryDateErrorMode,
   cardCvcErrorMode,
   handleCardNumbers,
-  handleCardValidityPeriod,
+  handleCardExpiryDate,
   handleCardCvc,
   handleLastCardNumber,
+  handleYearBlur,
+  handleMonthBlur,
 }: CardInputProps) {
   return (
     <form>
@@ -36,10 +40,12 @@ export default function CardInput({
         handleCardNumbers={handleCardNumbers}
         handleLastCardNumber={handleLastCardNumber}
       />
-      <CardValidityPeriod
-        cardValidityPeriod={cardValidityPeriod}
-        cardValidityErrorMode={cardValidityErrorMode}
-        handleCardValidityPeriod={handleCardValidityPeriod}
+      <CardExpiryDate
+        cardExpiryDate={cardExpiryDate}
+        cardExpiryDateErrorMode={cardExpiryDateErrorMode}
+        handleCardExpiryDate={handleCardExpiryDate}
+        handleYearBlur={handleYearBlur}
+        handleMonthBlur={handleMonthBlur}
       />
       <CardCvc
         cardCvc={cardCvc}
