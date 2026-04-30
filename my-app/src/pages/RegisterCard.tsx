@@ -1,19 +1,17 @@
 import Card from '../components/Card';
 import CardInput from '../components/CardInput';
 import React, { useState } from 'react';
-import type { errorModeInfoType } from '../constants/mode';
+import type { CardError, DateError, MonthError, YearError, CvcError } from '../types/types';
 
 export default function RegisterCard() {
   const [cardNumbers, setCardNumbers] = useState<string[]>(['', '', '', '']);
   const [cardExpiryDate, setCardExpiryDate] = useState<string[]>(['', '']);
   const [cardCvc, setCardCvc] = useState<string>('');
-  const [cardNumberErrorMode, setCardNumberErrorMode] = useState<errorModeInfoType | 'normal'>(
-    'normal',
-  );
+  const [cardNumberErrorMode, setCardNumberErrorMode] = useState<CardError | 'normal'>('normal');
   const [cardExpiryDateErrorMode, setCardExpiryDateErrorMode] = useState<
-    errorModeInfoType | 'normal'
+    DateError | MonthError | YearError | 'normal'
   >('normal');
-  const [cardCvcErrorMode, setCardCvcErrorMode] = useState<errorModeInfoType | 'normal'>('normal');
+  const [cardCvcErrorMode, setCardCvcErrorMode] = useState<CvcError | 'normal'>('normal');
   const [cardBrand, setCardBrand] = useState<string>('');
 
   const handleCardNumbers = (index: number) => (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -50,8 +48,14 @@ export default function RegisterCard() {
     const next = [...cardExpiryDate];
     next[index] = e.target.value;
     if (isNaN(Number(e.target.value))) {
-      setCardExpiryDateErrorMode('notNumber');
-      return;
+      if (index === 0) {
+        setCardExpiryDateErrorMode('notMonthNumber');
+        return;
+      }
+      if (index === 1) {
+        setCardExpiryDateErrorMode('notYearNumber');
+        return;
+      }
     }
 
     if (index === 0) {
@@ -116,7 +120,19 @@ export default function RegisterCard() {
   };
 
   return (
-    <>
+    <div
+      css={(theme) => ({
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+        gap: '45px',
+        backgroundColor: theme.colors.white,
+        width: '376px',
+        height: '100vh',
+        margin: '0 auto',
+      })}
+    >
       <Card cardNumbers={cardNumbers} cardExpiryDate={cardExpiryDate} cardBrand={cardBrand} />
       <CardInput
         cardNumbers={cardNumbers}
@@ -133,6 +149,6 @@ export default function RegisterCard() {
         handleMonthBlur={handleMonthBlur}
         handleCvcBlur={handleCvcBlur}
       />
-    </>
+    </div>
   );
 }
