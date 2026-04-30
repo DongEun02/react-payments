@@ -17,21 +17,23 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
-    cardNumbers: ['1234', '5678', '9012', '3456'],
-    cardValidityPeriod: ['12', '30'],
-  },
-};
-
-export const Empty: Story = {
-  args: {
+    cardBrand: '',
     cardNumbers: ['', '', '', ''],
-    cardValidityPeriod: ['', ''],
+    cardExpiryDate: ['', ''],
   },
 };
 
-export const WithoutValidityPeriod: Story = {
+export const FilledVisa: Story = {
   args: {
-    cardNumbers: ['1234', '5678', '9012', '3456'],
-    cardValidityPeriod: ['', ''],
+    cardBrand: 'visa',
+    cardNumbers: ['4123', '5678', '9875', '1234'],
+    cardExpiryDate: ['12', '12'],
+  },
+};
+export const FilledMaster: Story = {
+  args: {
+    cardBrand: 'master',
+    cardNumbers: ['5123', '1234', '1234', '1234'],
+    cardExpiryDate: ['12', '12'],
   },
 };

@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { fn } from 'storybook/test';
 
 import CardCvc from '../components/CardCvc';
+import type { errorModeInfoType } from '../constants/mode';
 
 const meta = {
   title: 'Components/CardCvc',
@@ -19,26 +20,80 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
-    handleCardCvc: fn(),
+    cardCvc: '',
+    cardCvcErrorMode: 'normal',
+    handleCardCvc: () => fn(),
+    handleCvcBlur: () => fn(),
+  },
+};
+
+export const Filled: Story = {
+  args: {
+    cardCvc: '123',
+    cardCvcErrorMode: 'normal',
+    handleCardCvc: () => fn(),
+    handleCvcBlur: () => fn(),
+  },
+};
+
+export const NotNumberError: Story = {
+  args: {
+    cardCvc: '1a',
+    cardCvcErrorMode: 'notNumber',
+    handleCardCvc: () => fn(),
+    handleCvcBlur: () => fn(),
+  },
+};
+
+export const CvcCountError: Story = {
+  args: {
+    cardCvc: '12',
+    cardCvcErrorMode: 'cvcCount',
+    handleCardCvc: () => fn(),
+    handleCvcBlur: () => fn(),
   },
 };
 
 export const Interactive: Story = {
   args: {
-    handleCardCvc: fn(),
+    cardCvc: '',
+    cardCvcErrorMode: 'normal',
+    handleCardCvc: () => fn(),
+    handleCvcBlur: () => fn(),
   },
   render: () => {
-    const [cvc, setCvc] = useState('');
+    const [cardCvc, setCardCvc] = useState<string>('');
+    const [cardCvcErrorMode, setCardCvcErrorMode] = useState<errorModeInfoType | 'normal'>(
+      'normal',
+    );
 
     const handleCardCvc = (e: React.ChangeEvent<HTMLInputElement>) => {
-      setCvc(e.target.value);
+      if (isNaN(Number(e.target.value))) {
+        setCardCvcErrorMode('notNumber');
+        return;
+      }
+      setCardCvcErrorMode('normal');
+      setCardCvc(e.target.value);
+    };
+
+    const handleCvcBlur = () => {
+      if (cardCvc.length < 3) {
+        setCardCvcErrorMode('cvcCount');
+        return;
+      }
+      setCardCvcErrorMode('normal');
     };
 
     return (
       <div>
-        <CardCvc handleCardCvc={handleCardCvc} />
+        <CardCvc
+          cardCvc={cardCvc}
+          cardCvcErrorMode={cardCvcErrorMode}
+          handleCardCvc={handleCardCvc}
+          handleCvcBlur={handleCvcBlur}
+        />
 
-        <div style={{ marginTop: '16px' }}>입력값: {cvc}</div>
+        <div style={{ marginTop: '16px' }}>입력값: {cardCvc}</div>
       </div>
     );
   },
