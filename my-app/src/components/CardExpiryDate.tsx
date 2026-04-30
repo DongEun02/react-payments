@@ -32,6 +32,7 @@ export default function CardExpiryDate({
             onChange={handleCardExpiryDate(0)}
             onBlur={handleMonthBlur}
             maxLength={2}
+            inputMode="numeric"
           ></input>
           <input
             type="text"
@@ -40,6 +41,7 @@ export default function CardExpiryDate({
             onChange={handleCardExpiryDate(1)}
             onBlur={handleYearBlur}
             maxLength={2}
+            inputMode="numeric"
           ></input>
         </div>
         {cardExpiryDateErrorMode !== 'normal' && <span>{ERROR_MODE[cardExpiryDateErrorMode]}</span>}

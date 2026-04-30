@@ -29,6 +29,7 @@ export default function CardNumber({
             maxLength={4}
             onChange={handleCardNumbers(0)}
             value={cardNumbers[0]}
+            inputMode="numeric"
           ></input>
           <input
             type="text"
@@ -36,6 +37,7 @@ export default function CardNumber({
             maxLength={4}
             onChange={handleCardNumbers(1)}
             value={cardNumbers[1]}
+            inputMode="numeric"
           ></input>
           <input
             type="text"
@@ -43,6 +45,7 @@ export default function CardNumber({
             maxLength={4}
             onChange={handleCardNumbers(2)}
             value={cardNumbers[2]}
+            inputMode="numeric"
           ></input>
           <input
             type="text"
@@ -51,6 +54,7 @@ export default function CardNumber({
             onChange={handleCardNumbers(3)}
             value={cardNumbers[3]}
             onBlur={handleLastCardNumber}
+            inputMode="numeric"
           ></input>
         </div>
         {cardNumberErrorMode !== 'normal' && <span>{ERROR_MODE[cardNumberErrorMode]}</span>}

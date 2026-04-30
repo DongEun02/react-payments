@@ -29,6 +29,7 @@ export default function CardCvc({
             onChange={handleCardCvc}
             maxLength={3}
             onBlur={handleCvcBlur}
+            inputMode="numeric"
           ></input>
         </div>
         {cardCvcErrorMode !== 'normal' && <span>{ERROR_MODE[cardCvcErrorMode]}</span>}
