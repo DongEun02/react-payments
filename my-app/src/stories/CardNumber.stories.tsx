@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import { useState } from 'react';
 import { fn } from 'storybook/test';
 import CardNumber from '../components/CardNumber';
-import type { errorModeInfoType } from '../constants/mode';
+import type { CardError } from '../types/types';
 
 const meta = {
   title: 'Components/CardNumber',
@@ -53,9 +53,7 @@ export const Interactive: Story = {
   },
   render: () => {
     const [cardNumbers, setCardNumbers] = useState(['', '', '', '']);
-    const [cardNumberErrorMode, setCardNumberErrorMode] = useState<errorModeInfoType | 'normal'>(
-      'normal',
-    );
+    const [cardNumberErrorMode, setCardNumberErrorMode] = useState<CardError | 'normal'>('normal');
 
     const handleCardNumbers = (index: number) => (e: React.ChangeEvent<HTMLInputElement>) => {
       const next = [...cardNumbers];

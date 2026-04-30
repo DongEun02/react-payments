@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { useState } from 'react';
 import { fn } from 'storybook/test';
-import type { errorModeInfoType } from '../constants/mode';
+import type { DateError, MonthError, YearError } from '../types/types';
 import CardExpiryDate from '../components/CardExpiryDate';
 
 const meta = {
@@ -78,15 +78,21 @@ export const Interactive: Story = {
   render: () => {
     const [cardExpiryDate, setCardExpiryDate] = useState<string[]>(['', '']);
     const [cardExpiryDateErrorMode, setCardExpiryDateErrorMode] = useState<
-      errorModeInfoType | 'normal'
+      DateError | MonthError | YearError | 'normal'
     >('normal');
 
     const handleCardExpiryDate = (index: number) => (e: React.ChangeEvent<HTMLInputElement>) => {
       const next = [...cardExpiryDate];
       next[index] = e.target.value;
       if (isNaN(Number(e.target.value))) {
-        setCardExpiryDateErrorMode('notNumber');
-        return;
+        if (index === 0) {
+          setCardExpiryDateErrorMode('notMonthNumber');
+          return;
+        }
+        if (index === 1) {
+          setCardExpiryDateErrorMode('notYearNumber');
+          return;
+        }
       }
 
       if (index === 0) {

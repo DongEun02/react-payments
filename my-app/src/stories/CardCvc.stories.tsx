@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { fn } from 'storybook/test';
 
 import CardCvc from '../components/CardCvc';
-import type { errorModeInfoType } from '../constants/mode';
+import type { CvcError } from '../types/types';
 
 const meta = {
   title: 'Components/CardCvc',
@@ -63,9 +63,7 @@ export const Interactive: Story = {
   },
   render: () => {
     const [cardCvc, setCardCvc] = useState<string>('');
-    const [cardCvcErrorMode, setCardCvcErrorMode] = useState<errorModeInfoType | 'normal'>(
-      'normal',
-    );
+    const [cardCvcErrorMode, setCardCvcErrorMode] = useState<CvcError | 'normal'>('normal');
 
     const handleCardCvc = (e: React.ChangeEvent<HTMLInputElement>) => {
       if (isNaN(Number(e.target.value))) {
