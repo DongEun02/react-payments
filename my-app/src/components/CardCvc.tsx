@@ -1,9 +1,9 @@
-import type { errorModeInfoType } from '../constants/messages.ts';
-import { ERROR_MODE } from '../constants/messages.ts';
+import { CVC_ERROR_MESSAGE } from '../constants/messages.ts';
+import type { CvcError } from '../types/types';
 
 type CardCvcProps = {
   cardCvc: string;
-  cardCvcErrorMode: errorModeInfoType | 'normal';
+  cardCvcErrorMode: CvcError | 'normal';
   handleCardCvc: (e: React.ChangeEvent<HTMLInputElement>) => void;
   handleCvcBlur: () => void;
 };
@@ -61,7 +61,7 @@ export default function CardCvc({
               color: theme.colors.error,
             })}
           >
-            {ERROR_MODE[cardCvcErrorMode]}
+            {CVC_ERROR_MESSAGE[cardCvcErrorMode]}
           </span>
         )}
       </div>
