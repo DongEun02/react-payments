@@ -4,7 +4,7 @@ import type {
   MonthErrorType,
   YearErrorType,
   CvcErrorType,
-} from '../types/types';
+} from '../types/errorTypes';
 
 export const CARD_ERROR_MESSAGE: CardErrorType = {
   notNumber: '숫자만 입력 가능합니다',
