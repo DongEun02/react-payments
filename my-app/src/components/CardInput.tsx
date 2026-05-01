@@ -1,52 +1,37 @@
 import CardCvc from './CardCvc';
 import CardNumber from './CardNumber';
 import CardExpiryDate from './CardExpiryDate';
-import type { DateError, MonthError, YearError, CvcError } from '../types/errorTypes';
-import type { CardHandler, CardStatus } from '../types/cardStausTypes';
+import type {
+  CardHandler,
+  CardStatus,
+  CardExpiry,
+  ExpireHandler,
+  Cvc,
+  CvcHandler,
+} from '../types/cardStausTypes';
 
 type CardInputProps = {
   cardStatus: CardStatus;
   setCardStatus: CardHandler;
-  cardExpiryDate: string[];
-  cardCvc: string;
-  cardExpiryDateErrorMode: DateError | MonthError | YearError | 'normal';
-  cardCvcErrorMode: CvcError | 'normal';
-  handleCardExpiryDate: (index: number) => (e: React.ChangeEvent<HTMLInputElement>) => void;
-  handleCardCvc: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  handleYearBlur: () => void;
-  handleMonthBlur: () => void;
-  handleCvcBlur: () => void;
+  cardExpiry: CardExpiry;
+  setCardExpiry: ExpireHandler;
+  cardCvc: Cvc;
+  setCardCvc: CvcHandler;
 };
 
 export default function CardInput({
   cardStatus,
   setCardStatus,
-  cardExpiryDate,
+  cardExpiry,
+  setCardExpiry,
   cardCvc,
-  cardExpiryDateErrorMode,
-  cardCvcErrorMode,
-  handleCardExpiryDate,
-  handleCardCvc,
-  handleYearBlur,
-  handleMonthBlur,
-  handleCvcBlur,
+  setCardCvc,
 }: CardInputProps) {
   return (
     <form css={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
       <CardNumber cardStatus={cardStatus} setCardStatus={setCardStatus} />
-      <CardExpiryDate
-        cardExpiryDate={cardExpiryDate}
-        cardExpiryDateErrorMode={cardExpiryDateErrorMode}
-        handleCardExpiryDate={handleCardExpiryDate}
-        handleYearBlur={handleYearBlur}
-        handleMonthBlur={handleMonthBlur}
-      />
-      <CardCvc
-        cardCvc={cardCvc}
-        cardCvcErrorMode={cardCvcErrorMode}
-        handleCardCvc={handleCardCvc}
-        handleCvcBlur={handleCvcBlur}
-      />
+      <CardExpiryDate cardExpiry={cardExpiry} setCardExpiry={setCardExpiry} />
+      <CardCvc cardCvc={cardCvc} setCardCvc={setCardCvc} />
     </form>
   );
 }

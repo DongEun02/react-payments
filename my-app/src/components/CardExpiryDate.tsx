@@ -1,26 +1,17 @@
-import type { DateError, MonthError, YearError } from '../types/errorTypes.ts';
 import {
   DATE_ERROR_MESSAGE,
   MONTH_ERROR_MESSAGE,
   YEAR_ERROR_MESSAGE,
 } from '../constants/messages.ts';
 import { isMonthError, isYearError } from '../utils/util.ts';
+import type { CardExpiry, ExpireHandler } from '../types/cardStausTypes';
 
 type CardExpiryDateProps = {
-  cardExpiryDate: string[];
-  cardExpiryDateErrorMode: DateError | MonthError | YearError | 'normal';
-  handleCardExpiryDate: (index: number) => (e: React.ChangeEvent<HTMLInputElement>) => void;
-  handleYearBlur: () => void;
-  handleMonthBlur: () => void;
+  cardExpiry: CardExpiry;
+  setCardExpiry: ExpireHandler;
 };
 
-export default function CardExpiryDate({
-  cardExpiryDate,
-  cardExpiryDateErrorMode,
-  handleCardExpiryDate,
-  handleYearBlur,
-  handleMonthBlur,
-}: CardExpiryDateProps) {
+export default function CardExpiryDate({ cardExpiry, setCardExpiry }: CardExpiryDateProps) {
   const EXPIRY_ERROR_MESSAGE = {
     ...DATE_ERROR_MESSAGE,
     ...MONTH_ERROR_MESSAGE,
@@ -64,9 +55,9 @@ export default function CardExpiryDate({
           <input
             type="text"
             placeholder="MM"
-            value={cardExpiryDate[0]}
-            onChange={handleCardExpiryDate(0)}
-            onBlur={handleMonthBlur}
+            value={cardExpiry.cardExpiryDate[0]}
+            onChange={setCardExpiry.handleCardExpiryDate(0)}
+            onBlur={setCardExpiry.handleMonthBlur}
             maxLength={2}
             inputMode="numeric"
             css={(theme) => ({
@@ -75,7 +66,7 @@ export default function CardExpiryDate({
               borderRadius: '2px',
               border: `1.01px solid ${theme.colors.inactiveBorder}`,
               borderColor: `${
-                isMonthError(cardExpiryDateErrorMode)
+                isMonthError(cardExpiry.cardExpiryDateErrorMode)
                   ? theme.colors.error
                   : theme.colors.inactiveBorder
               }`,
@@ -85,9 +76,9 @@ export default function CardExpiryDate({
           <input
             type="text"
             placeholder="YY"
-            value={cardExpiryDate[1]}
-            onChange={handleCardExpiryDate(1)}
-            onBlur={handleYearBlur}
+            value={cardExpiry.cardExpiryDate[1]}
+            onChange={setCardExpiry.handleCardExpiryDate(1)}
+            onBlur={setCardExpiry.handleYearBlur}
             maxLength={2}
             inputMode="numeric"
             css={(theme) => ({
@@ -96,7 +87,7 @@ export default function CardExpiryDate({
               borderRadius: '2px',
               border: `1.01px solid ${theme.colors.inactiveBorder}`,
               borderColor: `${
-                isYearError(cardExpiryDateErrorMode)
+                isYearError(cardExpiry.cardExpiryDateErrorMode)
                   ? theme.colors.error
                   : theme.colors.inactiveBorder
               }`,
@@ -111,8 +102,8 @@ export default function CardExpiryDate({
             height: '12px',
           })}
         >
-          {cardExpiryDateErrorMode !== 'normal'
-            ? EXPIRY_ERROR_MESSAGE[cardExpiryDateErrorMode]
+          {cardExpiry.cardExpiryDateErrorMode !== 'normal'
+            ? EXPIRY_ERROR_MESSAGE[cardExpiry.cardExpiryDateErrorMode]
             : ' '}
         </p>
       </div>

@@ -1,19 +1,12 @@
 import { CVC_ERROR_MESSAGE } from '../constants/messages.ts';
-import type { CvcError } from '../types/errorTypes.ts';
+import type { Cvc, CvcHandler } from '../types/cardStausTypes.ts';
 
 type CardCvcProps = {
-  cardCvc: string;
-  cardCvcErrorMode: CvcError | 'normal';
-  handleCardCvc: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  handleCvcBlur: () => void;
+  cardCvc: Cvc;
+  setCardCvc: CvcHandler;
 };
 
-export default function CardCvc({
-  cardCvc,
-  cardCvcErrorMode,
-  handleCardCvc,
-  handleCvcBlur,
-}: CardCvcProps) {
+export default function CardCvc({ cardCvc, setCardCvc }: CardCvcProps) {
   return (
     <div css={{ display: 'flex', flexDirection: 'column' }}>
       <h1
@@ -37,10 +30,10 @@ export default function CardCvc({
           <input
             type="text"
             placeholder="123"
-            value={cardCvc}
-            onChange={handleCardCvc}
+            value={cardCvc.cardCvc}
+            onChange={setCardCvc.handleCardCvc}
             maxLength={3}
-            onBlur={handleCvcBlur}
+            onBlur={setCardCvc.handleCvcBlur}
             inputMode="numeric"
             css={(theme) => ({
               width: '315px',
@@ -48,7 +41,9 @@ export default function CardCvc({
               borderRadius: '2px',
               border: `1.01px solid ${theme.colors.inactiveBorder}`,
               borderColor: `${
-                cardCvcErrorMode !== 'normal' ? theme.colors.error : theme.colors.inactiveBorder
+                cardCvc.cardCvcErrorMode !== 'normal'
+                  ? theme.colors.error
+                  : theme.colors.inactiveBorder
               }`,
               padding: '8px',
             })}
@@ -61,7 +56,9 @@ export default function CardCvc({
             height: '12px',
           })}
         >
-          {cardCvcErrorMode !== 'normal' ? CVC_ERROR_MESSAGE[cardCvcErrorMode] : ' '}
+          {cardCvc.cardCvcErrorMode !== 'normal'
+            ? CVC_ERROR_MESSAGE[cardCvc.cardCvcErrorMode]
+            : ' '}
         </p>
       </div>
     </div>
