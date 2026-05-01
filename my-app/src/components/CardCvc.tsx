@@ -54,16 +54,15 @@ export default function CardCvc({
             })}
           ></input>
         </div>
-        {cardCvcErrorMode !== 'normal' && (
-          <span
-            css={(theme) => ({
-              ...theme.typography.caption,
-              color: theme.colors.error,
-            })}
-          >
-            {CVC_ERROR_MESSAGE[cardCvcErrorMode]}
-          </span>
-        )}
+        <p
+          css={(theme) => ({
+            ...theme.typography.caption,
+            color: theme.colors.error,
+            height: '12px',
+          })}
+        >
+          {cardCvcErrorMode !== 'normal' ? CVC_ERROR_MESSAGE[cardCvcErrorMode] : ' '}
+        </p>
       </div>
     </div>
   );

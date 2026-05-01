@@ -35,7 +35,7 @@ export default function CardInput({
   handleCvcBlur,
 }: CardInputProps) {
   return (
-    <form>
+    <form css={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
       <CardNumber
         cardNumbers={cardNumbers}
         cardNumberErrorMode={cardNumberErrorMode}

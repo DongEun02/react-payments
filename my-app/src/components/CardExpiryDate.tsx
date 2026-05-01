@@ -104,16 +104,17 @@ export default function CardExpiryDate({
             })}
           ></input>
         </div>
-        {cardExpiryDateErrorMode !== 'normal' && (
-          <span
-            css={(theme) => ({
-              ...theme.typography.caption,
-              color: theme.colors.error,
-            })}
-          >
-            {EXPIRY_ERROR_MESSAGE[cardExpiryDateErrorMode]}
-          </span>
-        )}
+        <p
+          css={(theme) => ({
+            ...theme.typography.caption,
+            color: theme.colors.error,
+            height: '12px',
+          })}
+        >
+          {cardExpiryDateErrorMode !== 'normal'
+            ? EXPIRY_ERROR_MESSAGE[cardExpiryDateErrorMode]
+            : ' '}
+        </p>
       </div>
     </div>
   );

@@ -75,16 +75,15 @@ export default function CardNumber({
             );
           })}
         </div>
-        {cardNumberErrorMode !== 'normal' && (
-          <span
-            css={(theme) => ({
-              ...theme.typography.caption,
-              color: theme.colors.error,
-            })}
-          >
-            {CARD_ERROR_MESSAGE[cardNumberErrorMode]}
-          </span>
-        )}
+        <p
+          css={(theme) => ({
+            ...theme.typography.caption,
+            color: theme.colors.error,
+            height: '12px',
+          })}
+        >
+          {cardNumberErrorMode !== 'normal' ? CARD_ERROR_MESSAGE[cardNumberErrorMode] : ' '}
+        </p>
       </div>
     </div>
   );
