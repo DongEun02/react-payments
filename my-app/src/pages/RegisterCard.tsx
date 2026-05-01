@@ -59,7 +59,7 @@ export default function RegisterCard() {
     }
 
     if (index === 0) {
-      if (Number(next[index]) > 12) {
+      if (Number(next[index]) > 12 || next[index] === '00') {
         setCardExpiryDateErrorMode('notMonthRange');
         return;
       }
