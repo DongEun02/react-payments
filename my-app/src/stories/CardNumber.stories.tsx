@@ -1,8 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { useState } from 'react';
 import { fn } from 'storybook/test';
 import CardNumber from '../components/CardNumber';
-import type { CardError } from '../types/types';
+import { useCardNumber } from '../hooks/useCardNumber';
 
 const meta = {
   title: 'Components/CardNumber',
@@ -19,83 +18,66 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
-    cardNumbers: ['', '', '', ''],
-    cardNumberErrorMode: 'normal',
-    handleCardNumbers: () => fn(),
-    handleLastCardNumber: () => fn(),
+    cardStatus: {
+      cardNumbers: ['', '', '', ''],
+      cardNumberErrorMode: 'normal',
+      cardBrand: '',
+    },
+    setCardStatus: {
+      handleCardNumbers: () => fn(),
+      handleCardNumbersBlur: () => fn(),
+    },
   },
 };
 
 export const Filled: Story = {
   args: {
-    cardNumbers: ['1234', '5678', '9012', '3456'],
-    cardNumberErrorMode: 'normal',
-    handleCardNumbers: () => fn(),
-    handleLastCardNumber: () => fn(),
+    cardStatus: {
+      cardNumbers: ['4123', '1234', '1234', '1234'],
+      cardNumberErrorMode: 'normal',
+      cardBrand: 'visa',
+    },
+    setCardStatus: {
+      handleCardNumbers: () => fn(),
+      handleCardNumbersBlur: () => fn(),
+    },
   },
 };
 
 export const Error: Story = {
   args: {
-    cardNumbers: ['123a', '', '', ''],
-    cardNumberErrorMode: 'notNumber',
-    handleCardNumbers: () => fn(),
-    handleLastCardNumber: () => fn(),
+    cardStatus: {
+      cardNumbers: ['412a', '1234', '1234', '1234'],
+      cardNumberErrorMode: 'notNumber',
+      cardBrand: 'visa',
+    },
+    setCardStatus: {
+      handleCardNumbers: () => fn(),
+      handleCardNumbersBlur: () => fn(),
+    },
   },
 };
 
 export const Interactive: Story = {
   args: {
-    cardNumbers: ['', '', '', ''],
-    cardNumberErrorMode: 'normal',
-    handleCardNumbers: () => fn(),
-    handleLastCardNumber: () => fn(),
+    cardStatus: {
+      cardNumbers: ['', '', '', ''],
+      cardNumberErrorMode: 'normal',
+      cardBrand: '',
+    },
+    setCardStatus: {
+      handleCardNumbers: () => fn(),
+      handleCardNumbersBlur: () => fn(),
+    },
   },
   render: () => {
-    const [cardNumbers, setCardNumbers] = useState(['', '', '', '']);
-    const [cardNumberErrorMode, setCardNumberErrorMode] = useState<CardError | 'normal'>('normal');
-
-    const handleCardNumbers = (index: number) => (e: React.ChangeEvent<HTMLInputElement>) => {
-      const next = [...cardNumbers];
-      next[index] = e.target.value;
-      if (isNaN(Number(e.target.value))) {
-        setCardNumberErrorMode('notNumber');
-        return;
-      }
-      if (next[0].length === 1) {
-        if (next[0].slice(0, 1) !== '4' && next[0].slice(0, 1) !== '5') {
-          setCardNumberErrorMode('notExistBrand');
-          return;
-        }
-      }
-      if (next[0].length === 2 && next[0].slice(0, 1) !== '4') {
-        if (Number(next[0].slice(0, 2)) < 51 || Number(next[0].slice(0, 2)) > 55) {
-          setCardNumberErrorMode('notExistBrand');
-          return;
-        }
-      }
-      setCardNumberErrorMode('normal');
-      setCardNumbers(next);
-    };
-
-    const handleLastCardNumber = () => {
-      if (cardNumbers.join('').length !== 16) {
-        setCardNumberErrorMode('cardNumberCount');
-        return;
-      }
-      setCardNumberErrorMode('normal');
-    };
+    const [cardStatus, setCardStatus] = useCardNumber();
 
     return (
       <div>
-        <CardNumber
-          cardNumbers={cardNumbers}
-          cardNumberErrorMode={cardNumberErrorMode}
-          handleCardNumbers={handleCardNumbers}
-          handleLastCardNumber={handleLastCardNumber}
-        />
+        <CardNumber cardStatus={cardStatus} setCardStatus={setCardStatus} />
 
-        <div style={{ marginTop: '16px' }}>입력값: {cardNumbers.join(' - ')}</div>
+        <div style={{ marginTop: '16px' }}>입력값: {cardStatus.cardNumbers.join(' - ')}</div>
       </div>
     );
   },

@@ -1,9 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { useState } from 'react';
 import { fn } from 'storybook/test';
 
 import CardCvc from '../components/CardCvc';
-import type { CvcError } from '../types/types';
+import { useCardCvc } from '../hooks/useCardCvc';
 
 const meta = {
   title: 'Components/CardCvc',
@@ -20,78 +19,75 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
-    cardCvc: '',
-    cardCvcErrorMode: 'normal',
-    handleCardCvc: () => fn(),
-    handleCvcBlur: () => fn(),
+    cardCvc: {
+      cardCvc: '',
+      cardCvcErrorMode: 'normal',
+    },
+    setCardCvc: {
+      handleCardCvc: () => fn(),
+      handleCvcBlur: () => fn(),
+    },
   },
 };
 
 export const Filled: Story = {
   args: {
-    cardCvc: '123',
-    cardCvcErrorMode: 'normal',
-    handleCardCvc: () => fn(),
-    handleCvcBlur: () => fn(),
+    cardCvc: {
+      cardCvc: '123',
+      cardCvcErrorMode: 'normal',
+    },
+    setCardCvc: {
+      handleCardCvc: () => fn(),
+      handleCvcBlur: () => fn(),
+    },
   },
 };
 
 export const NotNumberError: Story = {
   args: {
-    cardCvc: '1a',
-    cardCvcErrorMode: 'notNumber',
-    handleCardCvc: () => fn(),
-    handleCvcBlur: () => fn(),
+    cardCvc: {
+      cardCvc: '1a',
+      cardCvcErrorMode: 'notNumber',
+    },
+    setCardCvc: {
+      handleCardCvc: () => fn(),
+      handleCvcBlur: () => fn(),
+    },
   },
 };
 
 export const CvcCountError: Story = {
   args: {
-    cardCvc: '12',
-    cardCvcErrorMode: 'cvcCount',
-    handleCardCvc: () => fn(),
-    handleCvcBlur: () => fn(),
+    cardCvc: {
+      cardCvc: '12',
+      cardCvcErrorMode: 'cvcCount',
+    },
+    setCardCvc: {
+      handleCardCvc: () => fn(),
+      handleCvcBlur: () => fn(),
+    },
   },
 };
 
 export const Interactive: Story = {
   args: {
-    cardCvc: '',
-    cardCvcErrorMode: 'normal',
-    handleCardCvc: () => fn(),
-    handleCvcBlur: () => fn(),
+    cardCvc: {
+      cardCvc: '',
+      cardCvcErrorMode: 'normal',
+    },
+    setCardCvc: {
+      handleCardCvc: () => fn(),
+      handleCvcBlur: () => fn(),
+    },
   },
   render: () => {
-    const [cardCvc, setCardCvc] = useState<string>('');
-    const [cardCvcErrorMode, setCardCvcErrorMode] = useState<CvcError | 'normal'>('normal');
-
-    const handleCardCvc = (e: React.ChangeEvent<HTMLInputElement>) => {
-      if (isNaN(Number(e.target.value))) {
-        setCardCvcErrorMode('notNumber');
-        return;
-      }
-      setCardCvcErrorMode('normal');
-      setCardCvc(e.target.value);
-    };
-
-    const handleCvcBlur = () => {
-      if (cardCvc.length < 3) {
-        setCardCvcErrorMode('cvcCount');
-        return;
-      }
-      setCardCvcErrorMode('normal');
-    };
+    const [cardCvc, setCardCvc] = useCardCvc();
 
     return (
       <div>
-        <CardCvc
-          cardCvc={cardCvc}
-          cardCvcErrorMode={cardCvcErrorMode}
-          handleCardCvc={handleCardCvc}
-          handleCvcBlur={handleCvcBlur}
-        />
+        <CardCvc cardCvc={cardCvc} setCardCvc={setCardCvc} />
 
-        <div style={{ marginTop: '16px' }}>입력값: {cardCvc}</div>
+        <div style={{ marginTop: '16px' }}>입력값: {cardCvc.cardCvc}</div>
       </div>
     );
   },
