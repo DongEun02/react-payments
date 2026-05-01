@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import type { CardError } from '../types/errorTypes';
 import type { CardStatus, CardHandler } from '../types/cardStausTypes';
-import { isNotNumber } from '../utils/util';
+import { isNotNumber, setEmptyBrand, setNoExist } from '../utils/util';
 
 export function useCardNumber(): [CardStatus, CardHandler] {
   const [cardNumbers, setCardNumbers] = useState<string[]>(['', '', '', '']);
@@ -16,25 +16,24 @@ export function useCardNumber(): [CardStatus, CardHandler] {
       return;
     }
 
-    if (next[0] === '') {
-      setCardBrand('');
-    }
+    setEmptyBrand(next, setCardBrand);
+
     if (next[0].length === 1) {
-      if (next[0].slice(0, 1) !== '4' && next[0].slice(0, 1) !== '5') {
-        setCardNumberErrorMode('notExistBrand');
+      if (setNoExist(next, 'notExistBrand', setCardNumberErrorMode)) {
         return;
       }
       if (next[0].slice(0, 1) == '4') {
         setCardBrand('visa');
       }
     }
+
     if (next[0].length === 2 && next[0].slice(0, 1) !== '4') {
-      if (Number(next[0].slice(0, 2)) < 51 || Number(next[0].slice(0, 2)) > 55) {
-        setCardNumberErrorMode('notExistBrand');
+      if (setNoExist(next, 'notExistBrand', setCardNumberErrorMode)) {
         return;
       }
       setCardBrand('master');
     }
+
     setCardNumberErrorMode('normal');
     setCardNumbers(next);
   };

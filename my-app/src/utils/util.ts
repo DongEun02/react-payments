@@ -39,3 +39,27 @@ export function isNotNumber<T extends string>(
   }
   return false;
 }
+
+export function setEmptyBrand(value: string[], setCardBrand: (brand: string) => void) {
+  if (value[0] === '') {
+    setCardBrand('');
+  }
+}
+
+export function setNoExist<T extends string>(
+  value: string[],
+  errorMode: T,
+  setFunc: (mode: T) => void,
+): boolean {
+  if (value[0].slice(0, 1) !== '4' && value[0].slice(0, 1) !== '5') {
+    setFunc(errorMode);
+    return true;
+  }
+  if (value[0].length === 2) {
+    if (Number(value[0].slice(0, 2)) < 51 || Number(value[0].slice(0, 2)) > 55) {
+      setFunc(errorMode);
+      return true;
+    }
+  }
+  return false;
+}
