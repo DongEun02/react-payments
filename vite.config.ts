@@ -13,6 +13,9 @@ const dirname =
 // More info at: https://storybook.js.org/docs/next/writing-tests/integrations/vitest-addon
 export default defineConfig({
   base: '/payments/',
+  build: {
+    outDir: 'docs',
+  },
   plugins: [
     react({
       jsxImportSource: '@emotion/react',
