@@ -1,19 +1,12 @@
-import type { CardError } from '../types/types';
 import { CARD_ERROR_MESSAGE } from '../constants/messages.ts';
+import type { CardHandler, CardStatus } from '../types/cardStausTypes.ts';
 
 type CardNumbersProps = {
-  cardNumbers: string[];
-  cardNumberErrorMode: CardError | 'normal';
-  handleCardNumbers: (index: number) => (e: React.ChangeEvent<HTMLInputElement>) => void;
-  handleLastCardNumber: () => void;
+  cardStatus: CardStatus;
+  setCardStatus: CardHandler;
 };
 
-export default function CardNumber({
-  cardNumbers,
-  cardNumberErrorMode,
-  handleCardNumbers,
-  handleLastCardNumber,
-}: CardNumbersProps) {
+export default function CardNumber({ cardStatus, setCardStatus }: CardNumbersProps) {
   return (
     <div css={{ display: 'flex', flexDirection: 'column' }}>
       <div>
@@ -49,16 +42,16 @@ export default function CardNumber({
             gap: '10px',
           }}
         >
-          {cardNumbers.map((cardNumber, index) => {
+          {cardStatus.cardNumbers.map((cardNumber, index) => {
             return (
               <input
                 key={index}
                 type="text"
                 placeholder="1234"
                 maxLength={4}
-                onChange={handleCardNumbers(index)}
+                onChange={setCardStatus.handleCardNumbers(index)}
                 value={cardNumber}
-                onBlur={handleLastCardNumber}
+                onBlur={setCardStatus.handleCardNumbersBlur}
                 inputMode="numeric"
                 css={(theme) => ({
                   width: '71.25px',
@@ -66,7 +59,7 @@ export default function CardNumber({
                   borderRadius: '2px',
                   border: `1.01px solid ${theme.colors.inactiveBorder}`,
                   borderColor:
-                    cardNumber.length < 4 && cardNumberErrorMode !== 'normal'
+                    cardNumber.length < 4 && cardStatus.cardNumberErrorMode !== 'normal'
                       ? theme.colors.error
                       : theme.colors.inactiveBorder,
                   padding: '8px',
@@ -82,7 +75,9 @@ export default function CardNumber({
             height: '12px',
           })}
         >
-          {cardNumberErrorMode !== 'normal' ? CARD_ERROR_MESSAGE[cardNumberErrorMode] : ' '}
+          {cardStatus.cardNumberErrorMode !== 'normal'
+            ? CARD_ERROR_MESSAGE[cardStatus.cardNumberErrorMode]
+            : ' '}
         </p>
       </div>
     </div>

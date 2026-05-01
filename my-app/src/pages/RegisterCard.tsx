@@ -1,48 +1,17 @@
 import Card from '../components/Card';
 import CardInput from '../components/CardInput';
 import React, { useState } from 'react';
-import type { CardError, DateError, MonthError, YearError, CvcError } from '../types/types';
+import type { DateError, MonthError, YearError, CvcError } from '../types/errorTypes';
+import { useCardNumber } from '../hooks/useCardNumber';
 
 export default function RegisterCard() {
-  const [cardNumbers, setCardNumbers] = useState<string[]>(['', '', '', '']);
+  const [cardStatus, setCardStatus] = useCardNumber();
   const [cardExpiryDate, setCardExpiryDate] = useState<string[]>(['', '']);
   const [cardCvc, setCardCvc] = useState<string>('');
-  const [cardNumberErrorMode, setCardNumberErrorMode] = useState<CardError | 'normal'>('normal');
   const [cardExpiryDateErrorMode, setCardExpiryDateErrorMode] = useState<
     DateError | MonthError | YearError | 'normal'
   >('normal');
   const [cardCvcErrorMode, setCardCvcErrorMode] = useState<CvcError | 'normal'>('normal');
-  const [cardBrand, setCardBrand] = useState<string>('');
-
-  const handleCardNumbers = (index: number) => (e: React.ChangeEvent<HTMLInputElement>) => {
-    const next = [...cardNumbers];
-    next[index] = e.target.value;
-    if (isNaN(Number(e.target.value))) {
-      setCardNumberErrorMode('notNumber');
-      return;
-    }
-    if (next[0] === '') {
-      setCardBrand('');
-    }
-    if (next[0].length === 1) {
-      if (next[0].slice(0, 1) !== '4' && next[0].slice(0, 1) !== '5') {
-        setCardNumberErrorMode('notExistBrand');
-        return;
-      }
-      if (next[0].slice(0, 1) == '4') {
-        setCardBrand('visa');
-      }
-    }
-    if (next[0].length === 2 && next[0].slice(0, 1) !== '4') {
-      if (Number(next[0].slice(0, 2)) < 51 || Number(next[0].slice(0, 2)) > 55) {
-        setCardNumberErrorMode('notExistBrand');
-        return;
-      }
-      setCardBrand('master');
-    }
-    setCardNumberErrorMode('normal');
-    setCardNumbers(next);
-  };
 
   const handleCardExpiryDate = (index: number) => (e: React.ChangeEvent<HTMLInputElement>) => {
     const next = [...cardExpiryDate];
@@ -76,14 +45,6 @@ export default function RegisterCard() {
     }
     setCardCvcErrorMode('normal');
     setCardCvc(e.target.value);
-  };
-
-  const handleLastCardNumber = () => {
-    if (cardNumbers.join('').length !== 16) {
-      setCardNumberErrorMode('cardNumberCount');
-      return;
-    }
-    setCardNumberErrorMode('normal');
   };
 
   const handleYearBlur = () => {
@@ -133,18 +94,20 @@ export default function RegisterCard() {
         margin: '0 auto',
       })}
     >
-      <Card cardNumbers={cardNumbers} cardExpiryDate={cardExpiryDate} cardBrand={cardBrand} />
+      <Card
+        cardNumbers={cardStatus.cardNumbers}
+        cardExpiryDate={cardExpiryDate}
+        cardBrand={cardStatus.cardBrand}
+      />
       <CardInput
-        cardNumbers={cardNumbers}
+        cardStatus={cardStatus}
+        setCardStatus={setCardStatus}
         cardExpiryDate={cardExpiryDate}
         cardCvc={cardCvc}
-        cardNumberErrorMode={cardNumberErrorMode}
         cardExpiryDateErrorMode={cardExpiryDateErrorMode}
         cardCvcErrorMode={cardCvcErrorMode}
-        handleCardNumbers={handleCardNumbers}
         handleCardExpiryDate={handleCardExpiryDate}
         handleCardCvc={handleCardCvc}
-        handleLastCardNumber={handleLastCardNumber}
         handleYearBlur={handleYearBlur}
         handleMonthBlur={handleMonthBlur}
         handleCvcBlur={handleCvcBlur}
