@@ -1,4 +1,4 @@
-type BaseError = 'notNumber';
+export type BaseError = 'notNumber';
 export type CardError = BaseError | 'notExistBrand' | 'cardNumberCount';
 export type DateError = 'emptyBoth';
 export type MonthError = 'emptyMonth' | 'notMonthRange' | 'notMonthNumber';
