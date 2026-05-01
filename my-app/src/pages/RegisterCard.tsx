@@ -1,4 +1,4 @@
-import Card from '../components/Card';
+import CardPreview from '../components/CardPreview';
 import CardInput from '../components/CardInput';
 import { useCardNumber } from '../hooks/useCardNumber';
 import { useExpiryDate } from '../hooks/useExpiryDate';
@@ -23,7 +23,7 @@ export default function RegisterCard() {
         margin: '0 auto',
       })}
     >
-      <Card
+      <CardPreview
         cardNumbers={cardStatus.cardNumbers}
         cardExpiryDate={cardExpiry.cardExpiryDate}
         cardBrand={cardStatus.cardBrand}

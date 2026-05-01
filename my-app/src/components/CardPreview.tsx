@@ -1,13 +1,13 @@
 import visa from '../assets/Visa.png';
 import master from '../assets/Mastercard.png';
 
-type CardProps = {
+type CardPreviewProps = {
   cardBrand: string;
   cardNumbers: string[];
   cardExpiryDate: string[];
 };
 
-export default function Card({ cardBrand, cardNumbers, cardExpiryDate }: CardProps) {
+export default function CardPreview({ cardBrand, cardNumbers, cardExpiryDate }: CardPreviewProps) {
   return (
     <div
       css={(theme) => ({

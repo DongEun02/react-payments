@@ -1,15 +1,15 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 
-import Card from '../components/Card';
+import CardPreview from '../components/CardPreview';
 
 const meta = {
   title: 'Components/Card',
-  component: Card,
+  component: CardPreview,
   parameters: {
     layout: 'centered',
   },
   tags: ['autodocs'],
-} satisfies Meta<typeof Card>;
+} satisfies Meta<typeof CardPreview>;
 
 export default meta;
 
