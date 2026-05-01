@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import type { CardError } from '../types/errorTypes';
 import type { CardStatus, CardHandler } from '../types/cardStausTypes';
+import { isNotNumber } from '../utils/util';
 
 export function useCardNumber(): [CardStatus, CardHandler] {
   const [cardNumbers, setCardNumbers] = useState<string[]>(['', '', '', '']);
@@ -10,10 +11,11 @@ export function useCardNumber(): [CardStatus, CardHandler] {
   const handleCardNumbers = (index: number) => (e: React.ChangeEvent<HTMLInputElement>) => {
     const next = [...cardNumbers];
     next[index] = e.target.value;
-    if (isNaN(Number(e.target.value))) {
-      setCardNumberErrorMode('notNumber');
+
+    if (isNotNumber(Number(e.target.value), 'notNumber', setCardNumberErrorMode)) {
       return;
     }
+
     if (next[0] === '') {
       setCardBrand('');
     }

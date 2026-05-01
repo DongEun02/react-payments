@@ -1,4 +1,4 @@
-import type { DateError, MonthError, YearError } from '../types/types';
+import type { DateError, MonthError, YearError } from '../types/errorTypes';
 
 export function isMonthError(mode: DateError | MonthError | YearError | 'normal') {
   if (
@@ -9,13 +9,13 @@ export function isMonthError(mode: DateError | MonthError | YearError | 'normal'
   ) {
     return true;
   }
-  if (mode === 'normal' || mode === 'yearCount' || mode === 'notYearNumber') {
+  if (mode === 'normal' || mode === 'emptyYear' || mode === 'notYearNumber') {
     return false;
   }
 }
 
 export function isYearError(mode: DateError | MonthError | YearError | 'normal') {
-  if (mode === 'emptyBoth' || mode === 'yearCount' || mode === 'notYearNumber') {
+  if (mode === 'emptyBoth' || mode === 'emptyYear' || mode === 'notYearNumber') {
     return true;
   }
   if (
@@ -26,4 +26,16 @@ export function isYearError(mode: DateError | MonthError | YearError | 'normal')
   ) {
     return false;
   }
+}
+
+export function isNotNumber<T extends string>(
+  value: number,
+  errorMode: T,
+  setFunc: (mode: T) => void,
+): boolean {
+  if (isNaN(value)) {
+    setFunc(errorMode);
+    return true;
+  }
+  return false;
 }
