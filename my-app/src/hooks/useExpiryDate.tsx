@@ -39,7 +39,7 @@ export function useExpiryDate(): [CardExpiry, ExpireHandler] {
       return;
     }
     if (cardExpiryDate[1].length < 2) {
-      setCardExpiryDateErrorMode('yearCount');
+      setCardExpiryDateErrorMode('emptyYear');
       return;
     }
     if (cardExpiryDate[0].length === 0) {

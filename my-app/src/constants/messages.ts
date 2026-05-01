@@ -24,7 +24,7 @@ export const MONTH_ERROR_MESSAGE: MonthErrorType = {
 
 export const YEAR_ERROR_MESSAGE: YearErrorType = {
   notYearNumber: '숫자만 입력 가능합니다',
-  yearCount: '연도를 입력해주세요.',
+  emptyYear: '연도를 입력해주세요.',
 };
 
 export const CVC_ERROR_MESSAGE: CvcErrorType = {
