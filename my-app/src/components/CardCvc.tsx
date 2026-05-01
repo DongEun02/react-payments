@@ -1,5 +1,5 @@
 import { CVC_ERROR_MESSAGE } from '../constants/messages.ts';
-import type { CvcError } from '../types/types';
+import type { CvcError } from '../types/errorTypes.ts';
 
 type CardCvcProps = {
   cardCvc: string;

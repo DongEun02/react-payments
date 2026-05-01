@@ -1,4 +1,4 @@
-import type { DateError, MonthError, YearError } from '../types/types';
+import type { DateError, MonthError, YearError } from '../types/errorTypes.ts';
 import {
   DATE_ERROR_MESSAGE,
   MONTH_ERROR_MESSAGE,
