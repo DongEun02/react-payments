@@ -28,7 +28,7 @@ export default function CardInput({
   setCardCvc,
 }: CardInputProps) {
   return (
-    <form css={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
+    <form css={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
       <CardNumber cardStatus={cardStatus} setCardStatus={setCardStatus} />
       <CardExpiryDate cardExpiry={cardExpiry} setCardExpiry={setCardExpiry} />
       <CardCvc cardCvc={cardCvc} setCardCvc={setCardCvc} />

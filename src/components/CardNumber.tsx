@@ -8,31 +8,35 @@ type CardNumbersProps = {
 
 export default function CardNumber({ cardStatus, setCardStatus }: CardNumbersProps) {
   return (
-    <div css={{ display: 'flex', flexDirection: 'column' }}>
-      <div>
-        <h1
-          css={(theme) => ({
-            ...theme.typography.title,
-            color: theme.colors.black,
-          })}
-        >
-          결제한 카드 번호를 입력해주세요
-        </h1>
-        <p
-          css={(theme) => ({
-            ...theme.typography.caption,
-            color: theme.colors.description,
-          })}
-        >
-          본인 명의의 카드만 결제 가능합니다.
-        </p>
-      </div>
-      <div>
+    <fieldset
+      css={{ display: 'flex', flexDirection: 'column', border: 'none', padding: 0, gap: '10px' }}
+      aria-describedby="card-number-description"
+    >
+      <legend
+        css={(theme) => ({
+          ...theme.typography.title,
+          color: theme.colors.black,
+          padding: 0,
+        })}
+      >
+        결제한 카드 번호를 입력해주세요
+      </legend>
+      <p
+        css={(theme) => ({
+          ...theme.typography.caption,
+          color: theme.colors.description,
+        })}
+        id="card-number-description"
+      >
+        본인 명의의 카드만 결제 가능합니다.
+      </p>
+      <div css={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
         <label
           css={(theme) => ({
             ...theme.typography.label,
             color: theme.colors.label,
           })}
+          id="card-number-label"
         >
           카드 번호
         </label>
@@ -64,6 +68,7 @@ export default function CardNumber({ cardStatus, setCardStatus }: CardNumbersPro
                       : theme.colors.inactiveBorder,
                   padding: '8px',
                 })}
+                aria-label={`카드 번호 ${index + 1}번째 입력창`}
               ></input>
             );
           })}
@@ -80,6 +85,6 @@ export default function CardNumber({ cardStatus, setCardStatus }: CardNumbersPro
             : ' '}
         </p>
       </div>
-    </div>
+    </fieldset>
   );
 }

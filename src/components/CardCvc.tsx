@@ -8,47 +8,49 @@ type CardCvcProps = {
 
 export default function CardCvc({ cardCvc, setCardCvc }: CardCvcProps) {
   return (
-    <div css={{ display: 'flex', flexDirection: 'column' }}>
-      <h1
+    <fieldset css={{ display: 'flex', flexDirection: 'column', border: 'none', padding: 0 }}>
+      <legend
         css={(theme) => ({
           ...theme.typography.title,
           color: theme.colors.black,
+          padding: 0,
+          marginBottom: '18px',
         })}
       >
-        <div>CVC 번호를 입력해 주세요</div>
-      </h1>
-      <div>
+        CVC 번호를 입력해 주세요
+      </legend>
+      <div css={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
         <label
           css={(theme) => ({
             ...theme.typography.label,
             color: theme.colors.label,
           })}
+          htmlFor="card-cvc"
         >
           CVC
         </label>
-        <div>
-          <input
-            type="text"
-            placeholder="123"
-            value={cardCvc.cardCvc}
-            onChange={setCardCvc.handleCardCvc}
-            maxLength={3}
-            onBlur={setCardCvc.handleCvcBlur}
-            inputMode="numeric"
-            css={(theme) => ({
-              width: '315px',
-              height: '32px',
-              borderRadius: '2px',
-              border: `1.01px solid ${theme.colors.inactiveBorder}`,
-              borderColor: `${
-                cardCvc.cardCvcErrorMode !== 'normal'
-                  ? theme.colors.error
-                  : theme.colors.inactiveBorder
-              }`,
-              padding: '8px',
-            })}
-          ></input>
-        </div>
+        <input
+          type="text"
+          placeholder="123"
+          value={cardCvc.cardCvc}
+          onChange={setCardCvc.handleCardCvc}
+          maxLength={3}
+          onBlur={setCardCvc.handleCvcBlur}
+          inputMode="numeric"
+          css={(theme) => ({
+            width: '315px',
+            height: '32px',
+            borderRadius: '2px',
+            border: `1.01px solid ${theme.colors.inactiveBorder}`,
+            borderColor: `${
+              cardCvc.cardCvcErrorMode !== 'normal'
+                ? theme.colors.error
+                : theme.colors.inactiveBorder
+            }`,
+            padding: '8px',
+          })}
+          id="card-cvc"
+        ></input>
         <p
           css={(theme) => ({
             ...theme.typography.caption,
@@ -61,6 +63,6 @@ export default function CardCvc({ cardCvc, setCardCvc }: CardCvcProps) {
             : ' '}
         </p>
       </div>
-    </div>
+    </fieldset>
   );
 }

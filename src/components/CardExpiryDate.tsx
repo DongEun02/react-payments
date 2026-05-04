@@ -18,31 +18,36 @@ export default function CardExpiryDate({ cardExpiry, setCardExpiry }: CardExpiry
     ...YEAR_ERROR_MESSAGE,
   };
   return (
-    <div css={{ display: 'flex', flexDirection: 'column' }}>
-      <div>
-        <h1
-          css={(theme) => ({
-            ...theme.typography.title,
-            color: theme.colors.black,
-          })}
-        >
-          카드 유효기간을 입력해 주세요
-        </h1>
-        <p
-          css={(theme) => ({
-            ...theme.typography.caption,
-            color: theme.colors.description,
-          })}
-        >
-          월/년도(MMYY)를 순서대로 입력해 주세요.
-        </p>
-      </div>
-      <div>
+    <fieldset
+      css={{ display: 'flex', flexDirection: 'column', border: 'none', padding: 0, gap: '10px' }}
+      aria-describedby="card-expiry-description"
+    >
+      <legend
+        css={(theme) => ({
+          ...theme.typography.title,
+          color: theme.colors.black,
+          padding: 0,
+        })}
+      >
+        카드 유효기간을 입력해 주세요
+      </legend>
+      <p
+        css={(theme) => ({
+          ...theme.typography.caption,
+          color: theme.colors.description,
+        })}
+        id="card-expiry-description"
+      >
+        월/년도(MMYY)를 순서대로 입력해 주세요.
+      </p>
+
+      <div css={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
         <label
           css={(theme) => ({
             ...theme.typography.label,
             color: theme.colors.label,
           })}
+          id="card-expiry-label"
         >
           유효기간
         </label>
@@ -72,6 +77,7 @@ export default function CardExpiryDate({ cardExpiry, setCardExpiry }: CardExpiry
               }`,
               padding: '8px',
             })}
+            aria-label="카드 유효기간 월 입력창"
           ></input>
           <input
             type="text"
@@ -93,6 +99,7 @@ export default function CardExpiryDate({ cardExpiry, setCardExpiry }: CardExpiry
               }`,
               padding: '8px',
             })}
+            aria-label="카드 유효기간 연도 입력창"
           ></input>
         </div>
         <p
@@ -107,6 +114,6 @@ export default function CardExpiryDate({ cardExpiry, setCardExpiry }: CardExpiry
             : ' '}
         </p>
       </div>
-    </div>
+    </fieldset>
   );
 }
