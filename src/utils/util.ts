@@ -31,7 +31,7 @@ export function isYearError(mode: DateError | MonthError | YearError | 'normal')
 export function isNotNumber<T extends string>(
   value: number,
   errorMode: T,
-  setFunc: (mode: T) => void,
+  setFunc: React.Dispatch<React.SetStateAction<T>>,
 ): boolean {
   if (isNaN(value)) {
     setFunc(errorMode);
@@ -49,7 +49,7 @@ export function setEmptyBrand(value: string[], setCardBrand: (brand: string) => 
 export function setNoExist<T extends string>(
   value: string[],
   errorMode: T,
-  setFunc: (mode: T) => void,
+  setFunc: React.Dispatch<React.SetStateAction<T>>,
 ): boolean {
   if (value[0].slice(0, 1) !== '4' && value[0].slice(0, 1) !== '5') {
     setFunc(errorMode);
