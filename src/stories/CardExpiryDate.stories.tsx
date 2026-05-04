@@ -72,7 +72,7 @@ export const EmptyMonthError: Story = {
   },
 };
 
-export const emptyYearError: Story = {
+export const EmptyYearError: Story = {
   args: {
     cardExpiry: {
       cardExpiryDate: ['10', ''],
