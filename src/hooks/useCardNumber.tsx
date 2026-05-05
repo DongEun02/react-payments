@@ -1,12 +1,12 @@
 import { useState } from 'react';
 import type { CardError } from '../types/errorTypes';
-import type { CardStatus, CardHandler } from '../types/cardStausTypes';
+import type { CardStatus, CardHandler, CardBrandType } from '../types/cardStausTypes';
 import { isNotNumber, setEmptyBrand, setNoExist } from '../utils/util';
 
 export function useCardNumber(): [CardStatus, CardHandler] {
   const [cardNumbers, setCardNumbers] = useState<string[]>(['', '', '', '']);
   const [cardNumberErrorMode, setCardNumberErrorMode] = useState<CardError | 'normal'>('normal');
-  const [cardBrand, setCardBrand] = useState<string>('');
+  const [cardBrand, setCardBrand] = useState<CardBrandType>('unknown');
 
   const handleCardNumbers = (index: number) => (e: React.ChangeEvent<HTMLInputElement>) => {
     const next = [...cardNumbers];

@@ -1,4 +1,5 @@
 import type { DateError, MonthError, YearError } from '../types/errorTypes';
+import type { CardBrandType } from '../types/cardStausTypes';
 
 export function isMonthError(mode: DateError | MonthError | YearError | 'normal') {
   if (
@@ -40,9 +41,9 @@ export function isNotNumber<T extends string>(
   return false;
 }
 
-export function setEmptyBrand(value: string[], setCardBrand: (brand: string) => void) {
+export function setEmptyBrand(value: string[], setCardBrand: (brand: CardBrandType) => void) {
   if (value[0] === '') {
-    setCardBrand('');
+    setCardBrand('unknown');
   }
 }
 

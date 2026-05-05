@@ -3,7 +3,7 @@ import type { CardError, DateError, MonthError, YearError, CvcError } from './er
 export interface CardStatus {
   cardNumbers: string[];
   cardNumberErrorMode: CardError | 'normal';
-  cardBrand: string;
+  cardBrand: CardBrandType;
 }
 
 export interface CardHandler {
@@ -31,3 +31,5 @@ export interface CvcHandler {
   handleCardCvc: (e: React.ChangeEvent<HTMLInputElement>) => void;
   handleCvcBlur: () => void;
 }
+
+export type CardBrandType = 'visa' | 'master' | 'unknown';

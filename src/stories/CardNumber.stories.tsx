@@ -21,7 +21,7 @@ export const Default: Story = {
     cardStatus: {
       cardNumbers: ['', '', '', ''],
       cardNumberErrorMode: 'normal',
-      cardBrand: '',
+      cardBrand: 'unknown',
     },
     setCardStatus: {
       handleCardNumbers: () => fn(),
@@ -63,7 +63,7 @@ export const Interactive: Story = {
     cardStatus: {
       cardNumbers: ['', '', '', ''],
       cardNumberErrorMode: 'normal',
-      cardBrand: '',
+      cardBrand: 'unknown',
     },
     setCardStatus: {
       handleCardNumbers: () => fn(),

@@ -1,15 +1,17 @@
 import visa from '../assets/Visa.png';
 import master from '../assets/Mastercard.png';
 import { maskCardNumbers } from '../utils/maskCardNumbers';
+import type { CardBrandType } from '../types/cardStausTypes';
 
 type CardPreviewProps = {
-  cardBrand: string;
+  cardBrand: CardBrandType;
   cardNumbers: string[];
   cardExpiryDate: string[];
 };
 
 export default function CardPreview({ cardBrand, cardNumbers, cardExpiryDate }: CardPreviewProps) {
-  const cardImgSrc: string = cardBrand === 'visa' ? visa : cardBrand === 'master' ? master : null;
+  const cardImgSrc: string | null =
+    cardBrand === 'visa' ? visa : cardBrand === 'master' ? master : null;
 
   return (
     <div
