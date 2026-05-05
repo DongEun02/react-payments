@@ -40,7 +40,7 @@ export default function CardPreview({ cardBrand, cardNumbers, cardExpiryDate }: 
             borderRadius: '4px',
           })}
         ></div>
-        {cardImgSrc && <img src={cardImgSrc} alt="카드 브랜드" />}
+        {cardImgSrc && <img src={cardImgSrc} alt="카드 브랜드" width={36} height={22} />}
       </div>
       <div
         css={(theme) => ({
