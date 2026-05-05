@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { fn } from 'storybook/test';
+import { expect, fn, userEvent, within } from 'storybook/test';
 import CardNumber from '../components/CardNumber';
 import { useCardNumber } from '../hooks/useCardNumber';
 
@@ -15,6 +15,20 @@ const meta = {
 export default meta;
 
 type Story = StoryObj<typeof meta>;
+
+function CardNumberWithState() {
+  const [cardStatus, setCardStatus] = useCardNumber();
+
+  return (
+    <div>
+      <CardNumber cardStatus={cardStatus} setCardStatus={setCardStatus} />
+      <div data-testid="card-brand" style={{ marginTop: '16px' }}>
+        브랜드: {cardStatus.cardBrand}
+      </div>
+      <div style={{ marginTop: '8px' }}>입력값: {cardStatus.cardNumbers.join(' - ')}</div>
+    </div>
+  );
+}
 
 export const Default: Story = {
   args: {
@@ -71,14 +85,58 @@ export const Interactive: Story = {
     },
   },
   render: () => {
-    const [cardStatus, setCardStatus] = useCardNumber();
+    return <CardNumberWithState />;
+  },
+};
 
-    return (
-      <div>
-        <CardNumber cardStatus={cardStatus} setCardStatus={setCardStatus} />
+export const VisaInput: Story = {
+  args: {
+    cardStatus: {
+      cardNumbers: ['', '', '', ''],
+      cardNumberErrorMode: 'normal',
+      cardBrand: 'unknown',
+    },
+    setCardStatus: {
+      handleCardNumbers: () => fn(),
+      handleCardNumbersBlur: () => fn(),
+    },
+  },
+  render: () => {
+    return <CardNumberWithState />;
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const firstInput = canvas.getByLabelText('카드 번호 1번째 입력창');
 
-        <div style={{ marginTop: '16px' }}>입력값: {cardStatus.cardNumbers.join(' - ')}</div>
-      </div>
-    );
+    await userEvent.type(firstInput, '4');
+
+    await expect(firstInput).toHaveValue('4');
+    await expect(canvas.getByTestId('card-brand')).toHaveTextContent('visa');
+  },
+};
+
+export const MasterInput: Story = {
+  args: {
+    cardStatus: {
+      cardNumbers: ['', '', '', ''],
+      cardNumberErrorMode: 'normal',
+      cardBrand: 'unknown',
+    },
+    setCardStatus: {
+      handleCardNumbers: () => fn(),
+      handleCardNumbersBlur: () => fn(),
+    },
+  },
+  render: () => {
+    return <CardNumberWithState />;
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const firstInput = canvas.getByLabelText('카드 번호 1번째 입력창');
+
+    await userEvent.type(firstInput, '51');
+
+    await expect(firstInput).toHaveValue('51');
+    await expect(canvas.getByTestId('card-brand')).toHaveTextContent('master');
   },
 };
