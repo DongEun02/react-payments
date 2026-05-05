@@ -8,6 +8,8 @@ type CardPreviewProps = {
 };
 
 export default function CardPreview({ cardBrand, cardNumbers, cardExpiryDate }: CardPreviewProps) {
+  const cardImgSrc: string = cardBrand === 'visa' ? visa : cardBrand === 'master' ? master : null;
+
   return (
     <div
       css={(theme) => ({
@@ -37,13 +39,7 @@ export default function CardPreview({ cardBrand, cardNumbers, cardExpiryDate }: 
             borderRadius: '4px',
           })}
         ></div>
-        {cardBrand === 'visa' ? (
-          <img src={visa} width={36} height={22} />
-        ) : cardBrand === 'master' ? (
-          <img src={master} width={36} height={22} />
-        ) : (
-          ''
-        )}
+        {cardImgSrc && <img src={cardImgSrc} alt="카드 브랜드" />}
       </div>
       <div
         css={(theme) => ({
