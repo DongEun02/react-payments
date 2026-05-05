@@ -1,5 +1,6 @@
 import visa from '../assets/Visa.png';
 import master from '../assets/Mastercard.png';
+import { maskCardNumbers } from '../utils/maskCardNumbers';
 
 type CardPreviewProps = {
   cardBrand: string;
@@ -49,18 +50,22 @@ export default function CardPreview({ cardBrand, cardNumbers, cardExpiryDate }: 
           gap: '10px',
         })}
       >
-        <span css={{ width: '40px', display: 'inline-block', textAlign: 'center' }}>
-          {cardNumbers[0]}
-        </span>
-        <span css={{ width: '40px', display: 'inline-block', textAlign: 'center' }}>
-          {cardNumbers[1]}
-        </span>
-        <span css={{ letterSpacing: '0px', fontSize: '30px', width: '34px' }}>
-          {'·'.repeat(cardNumbers[2].length)}
-        </span>
-        <span css={{ letterSpacing: '0px', fontSize: '30px', width: '34px' }}>
-          {'·'.repeat(cardNumbers[3].length)}
-        </span>
+        {maskCardNumbers(cardNumbers).map((cardNumber, index) => {
+          return (
+            <span
+              key={index}
+              css={{
+                width: '40px',
+                display: 'inline-block',
+                textAlign: 'center',
+                fontSize: index > 1 ? '30px' : '14px',
+                letterSpacing: index > 1 ? '0px' : '16%',
+              }}
+            >
+              {cardNumber}
+            </span>
+          );
+        })}
       </div>
       {cardExpiryDate[0] !== '' && cardExpiryDate[1] !== '' && (
         <span
