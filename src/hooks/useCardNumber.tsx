@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import type { CardError } from '../types/errorTypes';
 import type { CardStatus, CardHandler, CardBrandType } from '../types/cardStausTypes';
-import { isNotNumber, setEmptyBrand, setNoExist } from '../utils/util';
+import { getCardBrand, isNotNumber, setEmptyBrand, setNoExist } from '../utils/util';
 
 export function useCardNumber(): [CardStatus, CardHandler] {
   const [cardNumbers, setCardNumbers] = useState<string[]>(['', '', '', '']);
@@ -22,8 +22,9 @@ export function useCardNumber(): [CardStatus, CardHandler] {
       if (setNoExist(next, 'notExistBrand', setCardNumberErrorMode)) {
         return;
       }
-      if (next[0].slice(0, 1) == '4') {
-        setCardBrand('visa');
+      const nextCardBrand = getCardBrand(next[0]);
+      if (nextCardBrand !== 'unknown') {
+        setCardBrand(nextCardBrand);
       }
     }
 
@@ -31,7 +32,7 @@ export function useCardNumber(): [CardStatus, CardHandler] {
       if (setNoExist(next, 'notExistBrand', setCardNumberErrorMode)) {
         return;
       }
-      setCardBrand('master');
+      setCardBrand(getCardBrand(next[0]));
     }
 
     setCardNumberErrorMode('normal');

@@ -1,6 +1,20 @@
 import type { DateError, MonthError, YearError } from '../types/errorTypes';
 import type { CardBrandType } from '../types/cardStausTypes';
 
+export function getCardBrand(cardNumberPrefix: string): CardBrandType {
+  if (cardNumberPrefix.startsWith('4')) {
+    return 'visa';
+  }
+
+  const firstTwoDigits = Number(cardNumberPrefix.slice(0, 2));
+
+  if (firstTwoDigits >= 51 && firstTwoDigits <= 55) {
+    return 'master';
+  }
+
+  return 'unknown';
+}
+
 export function isMonthError(mode: DateError | MonthError | YearError | 'normal') {
   if (
     mode === 'emptyBoth' ||
